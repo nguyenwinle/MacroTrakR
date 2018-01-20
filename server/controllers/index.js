@@ -79,6 +79,17 @@ module.exports = {
               console.log(error);
             });
         }
+      },
+
+      userStats: {
+        post: function(req, res) {
+          var userBodyStats = req.body
+          db.save(userBodyStats)
+          .then((results) => {
+            res.send('saved oranges!')
+          })
+          .catch((error) => console.log(error))
+        }
       }
 
 

@@ -13,7 +13,7 @@ db.once('open', function() {
 });
 
 var Schema = mongoose.Schema
-const schema = mongoose.Schema;
+// const schema = mongoose.Schema;
 
 const userNutritionIntakeSchema = mongoose.Schema({
     email: { type: String },

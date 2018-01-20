@@ -134,8 +134,10 @@ class Landing extends React.Component {
     const iconStyles = {
       marginRight: 24,
     };
-    
+    console.log('Landing props: ', this.props)
+
     return (
+      
     <div className="mainCenter">
       {/* <Paper zDepth={5} className="test" > */}
       <h1>MacroTraKR</h1>
@@ -166,23 +168,23 @@ class Landing extends React.Component {
     </div> 
       </div>
   
-        <Paper zDepth={3} className='footer'>
-          <BottomNavigation selectedIndex={this.state.selectedIndex}>
-          <BottomNavigationItem
-          label="Diary"
+        {/* <Paper zDepth={3} className='footer'> */}
+          {/* <BottomNavigation selectedIndex={this.state.selectedIndex}> */}
+          {/* <BottomNavigationItem */}
+          {/* label="Diary"
           icon={recentsIcon}
           onClick={this.handleGetAllEntriesFromDB}
-          />
-          <FloatingActionButton type="submit" value="add to my daily intake" onClick={this.handleSaveToDB} >
-            <ContentAdd />
-          </FloatingActionButton><br/><br/>
-        <BottomNavigationItem
-        label="Nearby"
+          /> */}
+          {/* <FloatingActionButton type="submit" value="add to my daily intake" onClick={this.handleSaveToDB} > */}
+            {/* <ContentAdd /> */}
+          {/* </FloatingActionButton><br/><br/> */}
+        {/* <BottomNavigationItem */}
+        {/* label="Nearby"
         icon={nearbyIcon}
         onClick={() => this.select(2)}
-        />
-        </BottomNavigation>
-        </Paper>
+        /> */}
+        {/* </BottomNavigation> */}
+        {/* </Paper> */}
     </div>
     )
   }
