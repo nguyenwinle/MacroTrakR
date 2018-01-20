@@ -24272,14 +24272,15 @@ var Landing = function (_React$Component) {
     value: function handleSaveToDB() {
       var _this3 = this;
 
-      console.log('clientside save to db works');
       var nutritionOBj = this.state.items[0];
+      var email = this.props.email;
+
+      nutritionOBj['email'] = email;
       _axios2.default.post('/banx/caloriesInput', nutritionOBj).then(function () {
         _this3.setState({
           items: [],
           searchItem: ""
         });
-        console.log('banana', nutritionOBj);
       }).catch(function (error) {
         console.log(error);
       });
@@ -24382,7 +24383,14 @@ var Landing = function (_React$Component) {
             )
           ),
           _react2.default.createElement('div', null)
-        )
+        ),
+        _react2.default.createElement(
+          _FloatingActionButton2.default,
+          { type: 'submit', value: 'add to my daily intake', onClick: this.handleSaveToDB },
+          _react2.default.createElement(_add2.default, null)
+        ),
+        _react2.default.createElement('br', null),
+        _react2.default.createElement('br', null)
       );
     }
   }]);
@@ -24390,7 +24398,15 @@ var Landing = function (_React$Component) {
   return Landing;
 }(_react2.default.Component);
 
-exports.default = Landing;
+var mapStateToProps = function mapStateToProps(state) {
+  var email = state.email;
+
+  return {
+    email: email
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(Landing);
 
 /***/ }),
 /* 213 */

@@ -77,15 +77,15 @@ class Landing extends React.Component {
 
 
   handleSaveToDB() {
-    console.log('clientside save to db works')
     let nutritionOBj = this.state.items[0];
+    const { email } = this.props
+    nutritionOBj['email'] = email;
     axios.post('/banx/caloriesInput', nutritionOBj)
     .then(() => {
       this.setState({
         items: [],
         searchItem: ""
       })
-      console.log('banana', nutritionOBj)
     })
     .catch(function (error) {
       console.log(error);
@@ -175,9 +175,9 @@ class Landing extends React.Component {
           icon={recentsIcon}
           onClick={this.handleGetAllEntriesFromDB}
           /> */}
-          {/* <FloatingActionButton type="submit" value="add to my daily intake" onClick={this.handleSaveToDB} > */}
-            {/* <ContentAdd /> */}
-          {/* </FloatingActionButton><br/><br/> */}
+          <FloatingActionButton type="submit" value="add to my daily intake" onClick={this.handleSaveToDB}>
+            <ContentAdd />
+         </FloatingActionButton><br/><br/>
         {/* <BottomNavigationItem */}
         {/* label="Nearby"
         icon={nearbyIcon}
@@ -190,4 +190,11 @@ class Landing extends React.Component {
   }
 }
 
-export default Landing;
+const mapStateToProps = function(state) {
+    const { email } = state;
+    return {
+        email
+    }
+}
+
+export default connect(mapStateToProps, null)(Landing);
