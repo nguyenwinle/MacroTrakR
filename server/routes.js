@@ -1,0 +1,21 @@
+var controller = require('./controllers/index.js');
+var router = require('express').Router();
+
+//from five minute react tutorial
+const User = require('../models/user.js')
+
+//Connect controller methods to their corresponding routes
+// router.get('/getAllUsers', controller.getAllUsers.get)
+router.get('/getAllEntries', controller.getAllEntries.get);
+
+router.post('/caloriesInput', controller.caloriesInput.post)
+
+router.get('/getCalories', controller.getCalories.get);
+
+router.post('/searchNutrition', controller.searchNutrition.post);
+
+router.post('/userStats', controller.userStats.post)
+
+
+
+module.exports = router;
