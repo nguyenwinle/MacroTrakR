@@ -8,6 +8,7 @@ import {
     withRouter
   } from 'react-router-dom';
   import axios from 'axios';
+  import Landing from './Landing.jsx';
 
 class UserStats extends React.Component {
     constructor(props){
@@ -16,9 +17,9 @@ class UserStats extends React.Component {
             activityLevel: "sedentary",
             goal: "Lose",
             gender: "Male",
-            weight: "",
+            weight: 0,
             height: 0,
-            age: null,
+            age: 0,
             compiledData : null
         }
         this.handleActivityLevel = this.handleActivityLevel.bind(this)
@@ -80,10 +81,9 @@ class UserStats extends React.Component {
     handleSubmitUserStats(event) {
         event.preventDefault()
         var userBodyData = {
-            username: "",
             age: this.state.age,
             weight: this.state.weight,
-            hieght: this.state.height,
+            height: this.state.height,
             gender: this.state.gender,
             goal: this.state.goal,
             activityLevel: this.state.activityLevel
@@ -91,13 +91,15 @@ class UserStats extends React.Component {
 
         const { email } = this.props
         userBodyData["email"] = email;
-        console.log('honey', userBodyData)
         
         axios.post('banx/userStats', userBodyData)
           .then((response)=>{
             this.setState({
                 compiledData: userBodyData
             })
+          })
+          .then(() => {
+              console.log('bananapancakes', this.state.compiledData)
           })
           .catch((error)=> {
             console.log(error);
@@ -110,6 +112,7 @@ class UserStats extends React.Component {
         }
         return (
             <div>
+                <Landing compiledData={this.state.compiledData}/>
                 <form>
                     <label>
                     Age:<br/>
