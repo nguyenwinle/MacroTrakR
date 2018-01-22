@@ -134,7 +134,6 @@ class Landing extends React.Component {
     const iconStyles = {
       marginRight: 24,
     };
-    console.log('Landing props: ', this.props)
 
     return (
       

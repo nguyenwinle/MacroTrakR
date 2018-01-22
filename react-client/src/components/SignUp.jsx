@@ -31,19 +31,6 @@ class SignUp extends React.Component {
         })
     }
 
-    // handleSignUp() {
-    //     axios.post('/dbSignUpInfo', {
-    //         email: this.state.email,
-    //         password: this.state.password
-    //         })
-    //         .then(function (response) {
-    //         console.log(response);
-    //         })
-    //         .catch(function (error) {
-    //         console.log(error);
-    //         });
-    // }
-
     signUp() {
         const { email, password } = this.state
         firebaseApp.auth().createUserWithEmailAndPassword(email, password)
@@ -53,17 +40,16 @@ class SignUp extends React.Component {
             })
         })
         .then(() => {
-            this.setState({
-                signedIn: true
-            })
+            render((<Redirect to='/UserStats' />)) 
         })
     }
 
     render() {
-        const isLoggedIn = this.state.signedIn;
-        if (isLoggedIn) {
-            return <Redirect to='/UserStats' />
-        }
+        // const isLoggedIn = this.state.signedIn;
+        // let test = null;
+        // if (isLoggedIn) {
+        //     let test = <Redirect to='/UserStats' />
+        // }
         return(
             <div className='form-inline' id="banana" style={{ margin: "5%" }}>
                 <h2>SignUp</h2>
@@ -91,7 +77,9 @@ class SignUp extends React.Component {
                 >
                 SignUp
                 </button>
+                
                 <div>{this.state.error.message}</div>
+                {/* <div>{ test }</div> */}
                 <div><Link to={'/SignIn'}>Already a user? Sign in instead.</Link></div>
             </div>
             
