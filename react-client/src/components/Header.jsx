@@ -36,6 +36,7 @@ class Header extends React.Component {
         <li><Link to='/SignIn'>SignIn</Link></li>
         <li><Link to='/'>Landing</Link></li>
         <li><Link to='/UserStats'>Profile</Link></li>
+        <li><Link to='/USDAsearch'>USDAsearch</Link></li>
         <button 
       className='btn btn-danger'
       onClick={() => this.signOut() }

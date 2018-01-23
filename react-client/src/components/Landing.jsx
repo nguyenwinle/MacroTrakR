@@ -2,6 +2,7 @@ import React from 'react';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import $ from 'jquery';
 import List from './List.jsx';
+import USDAsearch from './USDAsearch.jsx'
 import { connect } from 'react-redux';
 import axios from 'axios'
 import Paper from 'material-ui/Paper';
@@ -30,7 +31,7 @@ class Landing extends React.Component {
       caloriesLeft : null,
       allFoods : []
     }
-    this.handleUserInput = this.handleUserInput.bind(this)
+    // this.handleUserInput = this.handleUserInput.bind(this)
     this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSaveToDB = this.handleSaveToDB.bind(this)
     // this.handleGetFromDB = this.handleGetFromDB.bind(this)
@@ -54,12 +55,12 @@ class Landing extends React.Component {
     });
   }
 
-  handleUserInput(event) {
-    this.setState({
-      searchItem: event.target.value,
-      caloriesLeft: null
-    })
-  }
+  // handleUserInput(event) {
+  //   this.setState({
+  //     searchItem: event.target.value,
+  //     caloriesLeft: null
+  //   })
+  // }
 
   // handleGetFromDB() {
   //   axios.get('/banx/getCalories')
@@ -134,20 +135,19 @@ class Landing extends React.Component {
     const iconStyles = {
       marginRight: 24,
     };
-    console.log('Landing props: ', this.props)
 
     return (
       
     <div className="mainCenter">
-      {/* <Paper zDepth={5} className="test" > */}
-      <h1>MacroTraKR</h1>
+      <USDAsearch/>
+      {/* <h1>MacroTraKR</h1> */}
       <div>
-        <form>
+        {/* <form>
           <label>
             <input type="text" value={this.state.searchItem} name="name" onChange={this.handleUserInput} />
           </label>
           <input type="submit" value="Submit" onClick={this.handleSubmit}/>
-        </form>
+        </form> */}
       <List 
       items={this.state.items}
       searchItem={this.state.searchItem}

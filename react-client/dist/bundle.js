@@ -24157,6 +24157,10 @@ var _List = __webpack_require__(383);
 
 var _List2 = _interopRequireDefault(_List);
 
+var _USDAsearch = __webpack_require__(213);
+
+var _USDAsearch2 = _interopRequireDefault(_USDAsearch);
+
 var _reactRedux = __webpack_require__(79);
 
 var _axios = __webpack_require__(90);
@@ -24215,9 +24219,8 @@ var Landing = function (_React$Component) {
       searchItem: "",
       caloriesLeft: null,
       allFoods: []
-    };
-    _this.handleUserInput = _this.handleUserInput.bind(_this);
-    _this.handleSubmit = _this.handleSubmit.bind(_this);
+      // this.handleUserInput = this.handleUserInput.bind(this)
+    };_this.handleSubmit = _this.handleSubmit.bind(_this);
     _this.handleSaveToDB = _this.handleSaveToDB.bind(_this);
     // this.handleGetFromDB = this.handleGetFromDB.bind(this)
     _this.handleGetAllEntriesFromDB = _this.handleGetAllEntriesFromDB.bind(_this);
@@ -24242,14 +24245,13 @@ var Landing = function (_React$Component) {
         console.log(error);
       });
     }
-  }, {
-    key: 'handleUserInput',
-    value: function handleUserInput(event) {
-      this.setState({
-        searchItem: event.target.value,
-        caloriesLeft: null
-      });
-    }
+
+    // handleUserInput(event) {
+    //   this.setState({
+    //     searchItem: event.target.value,
+    //     caloriesLeft: null
+    //   })
+    // }
 
     // handleGetFromDB() {
     //   axios.get('/banx/getCalories')
@@ -24328,29 +24330,14 @@ var Landing = function (_React$Component) {
       var iconStyles = {
         marginRight: 24
       };
-      console.log('Landing props: ', this.props);
 
       return _react2.default.createElement(
         'div',
         { className: 'mainCenter' },
-        _react2.default.createElement(
-          'h1',
-          null,
-          'MacroTraKR'
-        ),
+        _react2.default.createElement(_USDAsearch2.default, null),
         _react2.default.createElement(
           'div',
           null,
-          _react2.default.createElement(
-            'form',
-            null,
-            _react2.default.createElement(
-              'label',
-              null,
-              _react2.default.createElement('input', { type: 'text', value: this.state.searchItem, name: 'name', onChange: this.handleUserInput })
-            ),
-            _react2.default.createElement('input', { type: 'submit', value: 'Submit', onClick: this.handleSubmit })
-          ),
           _react2.default.createElement(_List2.default, {
             items: this.state.items,
             searchItem: this.state.searchItem
@@ -24408,7 +24395,109 @@ var mapStateToProps = function mapStateToProps(state) {
 exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(Landing);
 
 /***/ }),
-/* 213 */,
+/* 213 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _axios = __webpack_require__(90);
+
+var _axios2 = _interopRequireDefault(_axios);
+
+var _USDAresultsList = __webpack_require__(662);
+
+var _USDAresultsList2 = _interopRequireDefault(_USDAresultsList);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+
+function _possibleConstructorReturn(self, call) { if (!self) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return call && (typeof call === "object" || typeof call === "function") ? call : self; }
+
+function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
+
+var USDAsearch = function (_React$Component) {
+    _inherits(USDAsearch, _React$Component);
+
+    function USDAsearch(props) {
+        _classCallCheck(this, USDAsearch);
+
+        var _this = _possibleConstructorReturn(this, (USDAsearch.__proto__ || Object.getPrototypeOf(USDAsearch)).call(this, props));
+
+        _this.state = {
+            searchInput: '',
+            usdaList: [],
+            usdaResults: []
+        };
+        _this.handleSearchInput = _this.handleSearchInput.bind(_this);
+        _this.handleSubmit = _this.handleSubmit.bind(_this);
+        return _this;
+    }
+
+    _createClass(USDAsearch, [{
+        key: 'handleSearchInput',
+        value: function handleSearchInput(event) {
+            event.preventDefault();
+            this.setState({
+                searchInput: event.target.value
+            });
+        }
+    }, {
+        key: 'handleSubmit',
+        value: function handleSubmit(event) {
+            var _this2 = this;
+
+            event.preventDefault();
+            console.log('clientside post sbumit invoked');
+            _axios2.default.post('/banx/usdaDB', {
+                searchTerm: this.state.searchInput
+            }).then(function (response) {
+                _this2.setState({
+                    usdaResults: response.data.list.item
+                });
+                console.log('usdaList after setSteate', _this2.state.usdaList);
+            }).catch(function (error) {
+                console.log(error);
+            });
+        }
+    }, {
+        key: 'render',
+        value: function render() {
+            return _react2.default.createElement(
+                'div',
+                null,
+                _react2.default.createElement(
+                    'form',
+                    null,
+                    _react2.default.createElement(
+                        'label',
+                        null,
+                        _react2.default.createElement('input', { type: 'text', value: this.state.searchInput, onChange: this.handleSearchInput })
+                    ),
+                    _react2.default.createElement('input', { type: 'submit', value: 'Submit', onClick: this.handleSubmit })
+                ),
+                _react2.default.createElement(_USDAresultsList2.default, { usdaResults: this.state.usdaResults })
+            );
+        }
+    }]);
+
+    return USDAsearch;
+}(_react2.default.Component);
+
+exports.default = USDAsearch;
+
+/***/ }),
 /* 214 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -42762,6 +42851,15 @@ var Header = function (_React$Component) {
                   'Profile'
                 )
               ),
+              _react2.default.createElement(
+                'li',
+                null,
+                _react2.default.createElement(
+                  _reactRouterDom.Link,
+                  { to: '/USDAsearch' },
+                  'USDAsearch'
+                )
+              ),
               _react2.default.createElement('button', {
                 className: 'btn btn-danger',
                 onClick: function onClick() {
@@ -42856,25 +42954,23 @@ var _react = __webpack_require__(2);
 
 var _react2 = _interopRequireDefault(_react);
 
-var _ListItem = __webpack_require__(384);
-
-var _ListItem2 = _interopRequireDefault(_ListItem);
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+// import ListItem from './ListItem.jsx';
 
 var List = function List(props) {
   return _react2.default.createElement(
-    'div',
+    "div",
     null,
     _react2.default.createElement(
-      'h3',
+      "h3",
       null,
       props.searchItem ? "Nutritional facts for a serving of " + props.searchItem + " is as follow:" : "What are we eating today?"
     ),
-    ' ',
-    _react2.default.createElement('br', null),
+    " ",
+    _react2.default.createElement("br", null),
     props.items.map(function (item, index) {
-      return _react2.default.createElement(_ListItem2.default, {
+      return _react2.default.createElement(ListItem, {
         key: index,
         calories: item.calories,
         protein: item.protein,
@@ -42895,103 +42991,7 @@ var List = function List(props) {
 exports.default = List;
 
 /***/ }),
-/* 384 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
-
-var _react = __webpack_require__(2);
-
-var _react2 = _interopRequireDefault(_react);
-
-var _Paper = __webpack_require__(96);
-
-var _Paper2 = _interopRequireDefault(_Paper);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var ListItem = function ListItem(props) {
-  return _react2.default.createElement(
-    'div',
-    null,
-    _react2.default.createElement(
-      _Paper2.default,
-      null,
-      _react2.default.createElement(
-        'li',
-        { className: 'listItem' },
-        'Saturated Fat: ',
-        " " + props.Saturated,
-        ' grams'
-      ),
-      _react2.default.createElement(
-        'li',
-        { className: 'listItem' },
-        'Calories: ',
-        " " + props.calories
-      ),
-      _react2.default.createElement(
-        'li',
-        { className: 'listItem' },
-        'Protein: ',
-        " " + props.protein,
-        ' grams'
-      ),
-      _react2.default.createElement(
-        'li',
-        { className: 'listItem' },
-        'Total Fat: ',
-        " " + props.fats,
-        ' grams'
-      ),
-      _react2.default.createElement(
-        'li',
-        { className: 'listItem' },
-        'Carbohydrates: ',
-        " " + props.carbs,
-        ' grams'
-      ),
-      _react2.default.createElement(
-        'li',
-        { className: 'listItem' },
-        'Fiber: ',
-        " " + props.fiber,
-        ' grams'
-      ),
-      _react2.default.createElement(
-        'li',
-        { className: 'listItem' },
-        'Cholesterol: ',
-        " " + props.cholesterol,
-        ' grams'
-      ),
-      _react2.default.createElement(
-        'li',
-        { className: 'listItem' },
-        'Sodium: ',
-        " " + props.sodium,
-        ' grams'
-      ),
-      _react2.default.createElement(
-        'li',
-        { className: 'listItem' },
-        'Sugars: ',
-        " " + props.sugars,
-        ' grams'
-      ),
-      _react2.default.createElement('br', null)
-    )
-  );
-};
-
-exports.default = ListItem;
-
-/***/ }),
+/* 384 */,
 /* 385 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -43028,6 +43028,10 @@ var _UserStats = __webpack_require__(388);
 
 var _UserStats2 = _interopRequireDefault(_UserStats);
 
+var _USDAsearch = __webpack_require__(213);
+
+var _USDAsearch2 = _interopRequireDefault(_USDAsearch);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 var Main = function Main() {
@@ -43041,7 +43045,8 @@ var Main = function Main() {
             _react2.default.createElement(_reactRouterDom.Route, { exact: true, path: '/', component: _Landing2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/SignIn', component: _SignIn2.default }),
             _react2.default.createElement(_reactRouterDom.Route, { path: '/SignUp', component: _SignUp2.default }),
-            _react2.default.createElement(_reactRouterDom.Route, { path: '/Home', component: _Home2.default })
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/Home', component: _Home2.default }),
+            _react2.default.createElement(_reactRouterDom.Route, { path: '/USDAsearch', compononent: _USDAsearch2.default })
         )
     );
 };
@@ -43143,7 +43148,7 @@ var SignIn = function (_React$Component) {
 
             var isLoggedin = this.state.signedIn;
             if (isLoggedin) {
-                return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/Home' });
+                return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/' });
             }
             return _react2.default.createElement(
                 'div',
@@ -43270,20 +43275,6 @@ var SignUp = function (_React$Component) {
                 password: event.target.value
             });
         }
-
-        // handleSignUp() {
-        //     axios.post('/dbSignUpInfo', {
-        //         email: this.state.email,
-        //         password: this.state.password
-        //         })
-        //         .then(function (response) {
-        //         console.log(response);
-        //         })
-        //         .catch(function (error) {
-        //         console.log(error);
-        //         });
-        // }
-
     }, {
         key: 'signUp',
         value: function signUp() {
@@ -43298,9 +43289,7 @@ var SignUp = function (_React$Component) {
                     error: error
                 });
             }).then(function () {
-                _this2.setState({
-                    signedIn: true
-                });
+                return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/UserStats' });
             });
         }
     }, {
@@ -43308,10 +43297,6 @@ var SignUp = function (_React$Component) {
         value: function render() {
             var _this3 = this;
 
-            var isLoggedIn = this.state.signedIn;
-            if (isLoggedIn) {
-                return _react2.default.createElement(_reactRouterDom.Redirect, { to: '/UserStats' });
-            }
             return _react2.default.createElement(
                 'div',
                 { className: 'form-inline', id: 'banana', style: { margin: "5%" } },
@@ -43400,6 +43385,8 @@ var _Landing = __webpack_require__(212);
 
 var _Landing2 = _interopRequireDefault(_Landing);
 
+var _os = __webpack_require__(534);
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
@@ -43478,8 +43465,9 @@ var UserStats = function (_React$Component) {
     }, {
         key: 'handleWeight',
         value: function handleWeight(event) {
+            var weightInKG = event.target.value * 0.453592;
             this.setState({
-                weight: event.target.value
+                weight: weightInKG
             });
         }
     }, {
@@ -43488,6 +43476,39 @@ var UserStats = function (_React$Component) {
             this.setState({
                 age: event.target.value
             });
+        }
+    }, {
+        key: 'calculateMacros',
+        value: function calculateMacros(obj) {
+            var restingEnergy = null;
+            var TDEE = null;
+
+            if (obj.gender === "Male") {
+                restingEnergy = 10 * this.state.weight + 6.25 * this.state.height - 5 * this.state.age + 5;
+            } else if (obj.gender === "Female") {
+                restingEnergy = 10 * this.state.weight + 6.25 * this.state.height - 5 * this.state.age - 161;
+            }
+
+            if (obj.activityLevel === "sedentary") {
+                TDEE = restingEnergy * 1.2;
+            } else if (obj.activityLevel === "lightActivity") {
+                TDEE = restingEnergy * 1.375;
+            } else if (obj.activityLevel === "moderateActivity") {
+                TDEE = restingEnergy * 1.55;
+            } else if (obj.activityLevel === "veryActive") {
+                TDEE = restingEnergy * 1.725;
+            }
+
+            if (obj.goal === "Lose") {
+                totalTDEE = TDEE - TDEE * .20;
+            } else if (obj.goal === "Lose10") {
+                totalTDEE = TDEE - TDEE * .10;
+            } else if (obj.goal === "Gain") {
+                totalTDEE = TDEE + TDEE * .20;
+            }
+
+            console.log("passion fruit", totalTDEE);
+            return totalTDEE;
         }
     }, {
         key: 'handleSubmitUserStats',
@@ -43508,6 +43529,8 @@ var UserStats = function (_React$Component) {
 
             userBodyData["email"] = email;
 
+            macros = calculateMacros(userBodyData);
+
             _axios2.default.post('banx/userStats', userBodyData).then(function (response) {
                 _this2.setState({
                     compiledData: userBodyData
@@ -43527,7 +43550,6 @@ var UserStats = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 null,
-                _react2.default.createElement(_Landing2.default, { compiledData: this.state.compiledData }),
                 _react2.default.createElement(
                     'form',
                     null,
@@ -67000,7 +67022,61 @@ function rtl(muiTheme) {
 }
 
 /***/ }),
-/* 534 */,
+/* 534 */
+/***/ (function(module, exports) {
+
+exports.endianness = function () { return 'LE' };
+
+exports.hostname = function () {
+    if (typeof location !== 'undefined') {
+        return location.hostname
+    }
+    else return '';
+};
+
+exports.loadavg = function () { return [] };
+
+exports.uptime = function () { return 0 };
+
+exports.freemem = function () {
+    return Number.MAX_VALUE;
+};
+
+exports.totalmem = function () {
+    return Number.MAX_VALUE;
+};
+
+exports.cpus = function () { return [] };
+
+exports.type = function () { return 'Browser' };
+
+exports.release = function () {
+    if (typeof navigator !== 'undefined') {
+        return navigator.appVersion;
+    }
+    return '';
+};
+
+exports.networkInterfaces
+= exports.getNetworkInterfaces
+= function () { return {} };
+
+exports.arch = function () { return 'javascript' };
+
+exports.platform = function () { return 'browser' };
+
+exports.tmpdir = exports.tmpDir = function () {
+    return '/tmp';
+};
+
+exports.EOL = '\n';
+
+exports.homedir = function () {
+	return '/'
+};
+
+
+/***/ }),
 /* 535 */
 /***/ (function(module, exports, __webpack_require__) {
 
@@ -80338,6 +80414,44 @@ module.exports = function() {
 	throw new Error("define cannot be used indirect");
 };
 
+
+/***/ }),
+/* 662 */
+/***/ (function(module, exports, __webpack_require__) {
+
+"use strict";
+
+
+Object.defineProperty(exports, "__esModule", {
+    value: true
+});
+
+var _react = __webpack_require__(2);
+
+var _react2 = _interopRequireDefault(_react);
+
+var _USDAsearch = __webpack_require__(213);
+
+var _USDAsearch2 = _interopRequireDefault(_USDAsearch);
+
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+var USDAresultsList = function USDAresultsList(props) {
+    return _react2.default.createElement(
+        'div',
+        null,
+        console.log("hi", props),
+        props.usdaResults.map(function (item, index) {
+            return _react2.default.createElement(
+                'li',
+                { className: 'testNoBullet', key: index },
+                item.name
+            );
+        })
+    );
+};
+
+exports.default = USDAresultsList;
 
 /***/ })
 /******/ ]);

@@ -12,6 +12,11 @@ body {
 
 }
 
+.testNoBullet {
+  list-style-type: none;
+  text-align: left;
+}
+
 /* #banana {
   text-align: right;
 } */
