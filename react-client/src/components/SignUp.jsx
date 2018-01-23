@@ -40,16 +40,11 @@ class SignUp extends React.Component {
             })
         })
         .then(() => {
-            render((<Redirect to='/UserStats' />)) 
+            return <Redirect to='/UserStats' />
         })
     }
 
     render() {
-        // const isLoggedIn = this.state.signedIn;
-        // let test = null;
-        // if (isLoggedIn) {
-        //     let test = <Redirect to='/UserStats' />
-        // }
         return(
             <div className='form-inline' id="banana" style={{ margin: "5%" }}>
                 <h2>SignUp</h2>

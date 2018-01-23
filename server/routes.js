@@ -1,4 +1,5 @@
 var controller = require('./controllers/index.js');
+var searchBarController = require('./controllers/searchBar.js');
 var router = require('express').Router();
 
 //from five minute react tutorial
@@ -14,7 +15,9 @@ router.get('/getCalories', controller.getCalories.get);
 
 router.post('/searchNutrition', controller.searchNutrition.post);
 
-router.post('/userStats', controller.userStats.post)
+router.post('/userStats', controller.userStats.post);
+
+router.post('/usdaDB', searchBarController.usdaDB.post)
 
 
 

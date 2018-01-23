@@ -5,6 +5,7 @@ import Landing from './Landing.jsx';
 import SignIn from './SignIn.jsx';
 import SignUp from './SignUp.jsx';
 import Profile from './UserStats.jsx';
+import USDAsearch from './USDAsearch.jsx';
 
 const Main = () => (
     <main>
@@ -14,6 +15,7 @@ const Main = () => (
             <Route path='/SignIn' component={SignIn} />
             <Route path='/SignUp' component={SignUp} />
             <Route path='/Home' component={Home} />
+            <Route path='/USDAsearch' compononent={USDAsearch} />
         </Switch>
     </main>
 )
