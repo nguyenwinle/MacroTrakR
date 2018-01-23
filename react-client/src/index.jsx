@@ -8,7 +8,9 @@ import {
   BrowserRouter as Router,
   Route,
   Link,
-  BrowserRouter
+  BrowserRouter,
+  Redirect
+
 } from 'react-router-dom'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import App from './components/App.jsx'

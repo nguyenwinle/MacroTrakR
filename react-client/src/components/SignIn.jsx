@@ -60,7 +60,7 @@ class SignIn extends React.Component {
         const isLoggedin = this.state.signedIn;
         if (isLoggedin) {
             return (
-              <Redirect to={'/Home'}/>
+              <Redirect to={'/'}/>
             )
           }
         return(

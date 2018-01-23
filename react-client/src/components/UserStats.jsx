@@ -9,6 +9,7 @@ import {
   } from 'react-router-dom';
   import axios from 'axios';
   import Landing from './Landing.jsx';
+import { totalmem } from 'os';
 
 class UserStats extends React.Component {
     constructor(props){
@@ -67,8 +68,9 @@ class UserStats extends React.Component {
     }
 
     handleWeight(event) {
+        var weightInKG = event.target.value * 0.453592
         this.setState({
-            weight: event.target.value
+            weight: weightInKG
         })
     }
 
@@ -76,6 +78,40 @@ class UserStats extends React.Component {
         this.setState({
             age: event.target.value
         })
+    }
+
+    calculateMacros(obj){
+        var restingEnergy = null;
+        var TDEE = null;
+
+        
+        if (obj.gender === "Male") {
+            restingEnergy = 10 * this.state.weight + 6.25 * this.state.height - 5 * this.state.age + 5
+        } else if (obj.gender === "Female") {
+            restingEnergy = 10 * this.state.weight + 6.25 * this.state.height - 5 * this.state.age - 161
+        }
+
+        if (obj.activityLevel === "sedentary" ) {
+            TDEE = restingEnergy * 1.2;
+        } else if (obj.activityLevel === "lightActivity") {
+            TDEE = restingEnergy * 1.375;
+        } else if (obj.activityLevel === "moderateActivity") {
+            TDEE = restingEnergy * 1.55;
+        } else if (obj.activityLevel === "veryActive") {
+            TDEE = restingEnergy * 1.725;
+        }
+
+        if (obj.goal === "Lose") {
+            totalTDEE = TDEE - ( TDEE * .20 )
+        } else if (obj.goal === "Lose10") {
+            totalTDEE = TDEE - ( TDEE * .10 )
+        } else if (obj.goal === "Gain") {
+            totalTDEE = TDEE + ( TDEE * .20)
+        }
+        
+        console.log("passion fruit", totalTDEE)
+        return totalTDEE
+        
     }
 
     handleSubmitUserStats(event) {
@@ -91,6 +127,8 @@ class UserStats extends React.Component {
 
         const { email } = this.props
         userBodyData["email"] = email;
+
+        macros = calculateMacros(userBodyData);
         
         axios.post('banx/userStats', userBodyData)
           .then((response)=>{
@@ -112,7 +150,9 @@ class UserStats extends React.Component {
         }
         return (
             <div>
-                <Landing compiledData={this.state.compiledData}/>
+                {/* <Landing/> */}
+                {/* <Landing compiledData={this.state.compiledData}/> */}
+    
                 <form>
                     <label>
                     Age:<br/>
