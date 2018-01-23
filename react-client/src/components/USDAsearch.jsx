@@ -8,10 +8,12 @@ class USDAsearch extends React.Component {
         this.state = {
             searchInput: '',
             usdaList: [],
-            usdaResults: []
+            usdaResults: [],
+            testState: ''
         }
         this.handleSearchInput = this.handleSearchInput.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
+        this.handleClick = this.handleClick.bind(this)
     }
 
 handleSearchInput(event) {
@@ -38,7 +40,17 @@ handleSubmit(event) {
     });
 }
 
+handleClick() {
+    console.log('passed down successffuly')
+    this.setState({
+        testState: "Changed"
+    })
+}
+
 render() {
+    if (this.state.testState) {
+        return <div>hi</div>
+    }
     return (
     <div>
         <form>
@@ -47,7 +59,10 @@ render() {
         </label>
             <input type="submit" value="Submit" onClick={this.handleSubmit} />
         </form>
-    <USDAresultsList usdaResults={this.state.usdaResults}/>
+    <USDAresultsList 
+    usdaResults={this.state.usdaResults}
+    handleClick={this.handleClick}
+    />
     </div>
     )}
 }

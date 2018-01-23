@@ -39,9 +39,6 @@ class SignUp extends React.Component {
                 error: error
             })
         })
-        .then(() => {
-            return <Redirect to='/UserStats' />
-        })
     }
 
     render() {
