@@ -140,14 +140,7 @@ class Landing extends React.Component {
       
     <div className="mainCenter">
       <USDAsearch/>
-      {/* <h1>MacroTraKR</h1> */}
       <div>
-        {/* <form>
-          <label>
-            <input type="text" value={this.state.searchItem} name="name" onChange={this.handleUserInput} />
-          </label>
-          <input type="submit" value="Submit" onClick={this.handleSubmit}/>
-        </form> */}
       <List 
       items={this.state.items}
       searchItem={this.state.searchItem}
