@@ -5,7 +5,12 @@ const USDAresultsList = (props) => (
     <div>
         {console.log("hi", props)}
         {props.usdaResults.map((item, index) => 
-        <li className="testNoBullet" key={index}>{item.name}</li>)}
+        <li onClick={() => {
+            props.handleClick()}
+        }
+        className="testNoBullet" 
+        key={index}
+        >{item.name}</li>)}
     </div>
 )
 

@@ -21,7 +21,7 @@ class UserStats extends React.Component {
             weight: 0,
             height: 0,
             age: 0,
-            compiledData : null
+            compiledData : {}
         }
         this.handleActivityLevel = this.handleActivityLevel.bind(this)
         this.handleGender = this.handleGender.bind(this)
