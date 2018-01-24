@@ -9,7 +9,7 @@ import {
   } from 'react-router-dom';
   import axios from 'axios';
   import Landing from './Landing.jsx';
-import { totalmem } from 'os';
+import SetCalories from './SetCalories.jsx';
 
 class UserStats extends React.Component {
     constructor(props){
@@ -21,7 +21,7 @@ class UserStats extends React.Component {
             weight: 0,
             height: 0,
             age: 0,
-            compiledData : {}
+            calories: ""
         }
         this.handleActivityLevel = this.handleActivityLevel.bind(this)
         this.handleGender = this.handleGender.bind(this)
@@ -81,8 +81,9 @@ class UserStats extends React.Component {
     }
 
     calculateMacros(obj){
-        var restingEnergy = null;
-        var TDEE = null;
+        let restingEnergy = null;
+        let TDEE = null;
+        let totalTDEE = null;
 
         
         if (obj.gender === "Male") {
@@ -107,15 +108,14 @@ class UserStats extends React.Component {
             totalTDEE = TDEE - ( TDEE * .10 )
         } else if (obj.goal === "Gain") {
             totalTDEE = TDEE + ( TDEE * .20)
-        }
-        
-        console.log("passion fruit", totalTDEE)
-        return totalTDEE
-        
+        }     
+        return Math.round(totalTDEE);
     }
 
     handleSubmitUserStats(event) {
         event.preventDefault()
+        let calcCalories;
+        let macrosNutrients;
         var userBodyData = {
             age: this.state.age,
             weight: this.state.weight,
@@ -128,21 +128,42 @@ class UserStats extends React.Component {
         const { email } = this.props
         userBodyData["email"] = email;
 
-        macros = calculateMacros(userBodyData);
+        calcCalories = this.calculateMacros(userBodyData);
+        macrosNutrients = this.calculateMacrosNutrients(calcCalories)
+        console.log('calories', calcCalories)
+        console.log('macroNutrients', macrosNutrients)
         
         axios.post('banx/userStats', userBodyData)
           .then((response)=>{
             this.setState({
-                compiledData: userBodyData
+                calories: calcCalories
             })
-          })
-          .then(() => {
-              console.log('bananapancakes', this.state.compiledData)
           })
           .catch((error)=> {
             console.log(error);
           });
     }
+
+    calculateMacrosNutrients(calories) {
+        var obj = {};
+        obj["proteins"] = calories / 4;
+        obj["carbs"] = calories / 4;
+        obj["fats"] = calories / 9;
+
+        return obj;
+    }
+
+    // clearState() {
+    //     this.setState({
+    //         activityLevel: "sedentary",
+    //         goal: "Lose",
+    //         gender: "Male",
+    //         weight: 0,
+    //         height: 0,
+    //         age: 0,
+    //         // calories: ""
+    //     })
+    // }
 
     render() {
         // if (this.state.compiledData) {
@@ -150,6 +171,7 @@ class UserStats extends React.Component {
         // }
         return (
             <div>
+                <SetCalories calories={this.state.calories}/>
                 <form>
                     <label>
                     Age:<br/>
@@ -193,7 +215,11 @@ class UserStats extends React.Component {
                         <option value="Gain">Gain</option>
                     </select>
                     </label>
-                    <input type="submit" value="Submit" onClick={this.handleSubmitUserStats} /><br/> <br/>
+                    <input 
+                    type="submit" 
+                    value="Submit" 
+                    onClick={this.handleSubmitUserStats}
+                    /><br/> <br/>
 
                 </form>
             </div>

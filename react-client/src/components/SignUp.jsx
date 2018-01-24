@@ -8,7 +8,7 @@ class SignUp extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
-            email: '',
+            email: null,
             password: '',
             error: {
                 message: ''
@@ -45,9 +45,8 @@ class SignUp extends React.Component {
     render() {
         const { email } = this.props;
         let redirect;
-        console.log('signup email from redux: ', email)
         if (email) {
-            redirect = <Redirect to="/UserStats"/>
+            redirect = <Redirect to='/UserStats'/>
         } 
         return(
             <div className='form-inline' id="banana" style={{ margin: "5%" }}>

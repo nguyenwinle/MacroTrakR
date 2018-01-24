@@ -11,7 +11,7 @@
         // git checkout -b featBranch
 
     //*******   Step Three   ***********//
-        // Develop! Code and make changes on the featBranch that you created in the prior step
+        // DEVELOPE! Code and make changes on the featBranch that you created in the prior step
 
 // these two commands adds and then commits your changes
 
@@ -31,7 +31,7 @@
  // this command checkouts out the dev branch
 
     //*******   Step Six   ***********//
-    // git check dev
+    // git checkout dev
     
 // this command will "rebase" the project directory with the most updated version of
 // the project from github
