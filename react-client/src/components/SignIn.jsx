@@ -1,5 +1,4 @@
 import React from 'react';
-// import { Link } from 'react-router-dom'
 import { firebaseApp } from '../config/firebase.js';
 import {
     BrowserRouter as Router,

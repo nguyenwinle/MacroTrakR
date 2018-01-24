@@ -150,9 +150,6 @@ class UserStats extends React.Component {
         }
         return (
             <div>
-                {/* <Landing/> */}
-                {/* <Landing compiledData={this.state.compiledData}/> */}
-    
                 <form>
                     <label>
                     Age:<br/>
