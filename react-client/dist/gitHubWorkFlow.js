@@ -31,7 +31,7 @@
  // this command checkouts out the dev branch
 
     //*******   Step Six   ***********//
-    // git check dev
+    // git checkout dev
     
 // this command will "rebase" the project directory with the most updated version of
 // the project from github
