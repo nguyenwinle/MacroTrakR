@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import { Link, Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
 import { firebaseApp } from '../config/firebase.js';
 
 class SignUp extends React.Component {
@@ -42,8 +43,15 @@ class SignUp extends React.Component {
     }
 
     render() {
+        const { email } = this.props;
+        let redirect;
+        console.log('signup email from redux: ', email)
+        if (email) {
+            redirect = <Redirect to="/"/>
+        } 
         return(
             <div className='form-inline' id="banana" style={{ margin: "5%" }}>
+                {redirect}
                 <h2>SignUp</h2>
                 <div className='form-group'></div>
                 <input 
@@ -79,4 +87,13 @@ class SignUp extends React.Component {
     }
 }
 
-export default SignUp;
+const mapStateToProps = (state) => {
+    const { email } = state;
+    return {
+        email
+    }
+}
+
+export default connect(mapStateToProps, null)(SignUp);
+
+// export default SignUp;
