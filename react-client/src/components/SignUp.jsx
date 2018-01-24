@@ -47,7 +47,7 @@ class SignUp extends React.Component {
         let redirect;
         console.log('signup email from redux: ', email)
         if (email) {
-            redirect = <Redirect to="/"/>
+            redirect = <Redirect to="/UserStats"/>
         } 
         return(
             <div className='form-inline' id="banana" style={{ margin: "5%" }}>

@@ -4,16 +4,14 @@ import Landing from './Landing.jsx';
 import SignIn from './SignIn.jsx';
 import SignUp from './SignUp.jsx';
 import Profile from './UserStats.jsx';
-import USDAsearch from './USDAsearch.jsx';
 
 const Main = () => (
     <main>
         <Switch>
-            <Route path='/UserStats' component={Profile} />
-            <Route exact path='/' component={Landing} />
-            <Route path='/SignIn' component={SignIn} />
             <Route path='/SignUp' component={SignUp} />
-            <Route path='/USDAsearch' compononent={USDAsearch} />
+            <Route path='/SignIn' component={SignIn} />
+            <Route exact path='/' component={Landing} />
+            <Route path='/UserStats' component={Profile} />
         </Switch>
     </main>
 )

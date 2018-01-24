@@ -145,9 +145,9 @@ class UserStats extends React.Component {
     }
 
     render() {
-        if (this.state.compiledData) {
-            return <Redirect to='/' />
-        }
+        // if (this.state.compiledData) {
+        //     return <Redirect to='/' />
+        // }
         return (
             <div>
                 <form>
