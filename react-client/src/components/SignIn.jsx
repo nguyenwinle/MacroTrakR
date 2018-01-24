@@ -26,7 +26,7 @@ class SignIn extends React.Component {
         this.changePasswordState = this.changePasswordState.bind(this)
         this.signIn = this.signIn.bind(this)
     }
-    
+
 
     changeEmailState(event) {
         this.setState({
@@ -67,21 +67,21 @@ class SignIn extends React.Component {
             <div className='form-inline' id="banana" style={{ margin: "5%" }}>
             <h2>SignIn</h2>
                 <div className='form-group'></div>
-                <input 
+                <input
                 className='form-control'
                 type='text'
                 style={{ marginRight: '5px'}}
                 placeholder='email'
                 onChange={this.changeEmailState}
                 />
-                <input 
+                <input
                 className='form-control'
                 type='password'
                 style={{ marginRight: '5px'}}
                 placeholder='password'
                 onChange={this.changePasswordState}
                 />
-                <button 
+                <button
                 className='btn btn-primary'
                 type='button'
                 onClick={() => this.signIn()}
