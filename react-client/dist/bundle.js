@@ -15218,16 +15218,6 @@ var warning = __webpack_require__(5);
 /**
  * Injected dependencies:
  */
-function executeDispatch(event, simulated, listener, inst) {
-  var type = event.type || 'unknown-event';
-  event.currentTarget = EventPluginUtils.getNodeFromInstance(inst);
-  if (simulated) {
-    ReactErrorUtils.invokeGuardedCallbackWithCatch(type, listener, event);
-  } else {
-    ReactErrorUtils.invokeGuardedCallback(type, listener, event);
-  }
-  event.currentTarget = null;
-}
 
 /**
  * - `ComponentTree`: [required] Module that can convert between React instances
@@ -18648,7 +18638,6 @@ var PersistentConnection = /** @class */ (function (_super) {
             var request = this.onDisconnectRequestQueue_.shift();
             this.sendOnDisconnect_(request.action, request.pathString, request.data, request.onComplete);
         }
-      })
     };
     /**
      * Sends client stats for first connection
@@ -18704,78 +18693,19 @@ exports.PersistentConnection = PersistentConnection;
 "use strict";
 
 /**
- * Public API for matching a URL pathname to a path pattern.
- */
-var matchPath = function matchPath(pathname) {
-  var options = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : {};
-
-  if (typeof options === 'string') options = { path: options };
-
-  var _options = options,
-      _options$path = _options.path,
-      path = _options$path === undefined ? '/' : _options$path,
-      _options$exact = _options.exact,
-      exact = _options$exact === undefined ? false : _options$exact,
-      _options$strict = _options.strict,
-      strict = _options$strict === undefined ? false : _options$strict,
-      _options$sensitive = _options.sensitive,
-      sensitive = _options$sensitive === undefined ? false : _options$sensitive;
-
-  var _compilePath = compilePath(path, { end: exact, strict: strict, sensitive: sensitive }),
-      re = _compilePath.re,
-      keys = _compilePath.keys;
-
-  var match = re.exec(pathname);
-
-  if (!match) return null;
-
-  var url = match[0],
-      values = match.slice(1);
-
-  var isExact = pathname === url;
-
-  if (exact && !isExact) return null;
-
-  return {
-    path: path, // the path pattern used to match
-    url: path === '/' && url === '' ? '/' : url, // the matched portion of the URL
-    isExact: isExact, // whether or not we matched exactly
-    params: keys.reduce(function (memo, key, index) {
-      memo[key.name] = values[index];
-      return memo;
-    }, {})
-  };
-};
-
-/* harmony default export */ __webpack_exports__["a"] = (matchPath);
-
-/***/ }),
-/* 168 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-/* WEBPACK VAR INJECTION */(function(process) {/**
- * Copyright (c) 2014-present, Facebook, Inc.
+ * Copyright 2017 Google Inc.
  *
- * This source code is licensed under the MIT license found in the
- * LICENSE file in the root directory of this source tree.
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
  *
- */
-
-
-
-/**
- * Forked from fbjs/warning:
- * https://github.com/facebook/fbjs/blob/e66ba20ad5be433eb54423f2b097d829324d9de6/packages/fbjs/src/__forks__/warning.js
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
- * Only change is we use console.warn instead of console.error,
- * and do nothing when 'console' is not supported.
- * This really simplifies the code.
- * ---
- * Similar to invariant but only logs a warning if the condition is not met.
- * This can be used to log issues in development environments in critical
- * paths. Removing the logging code for production environments will keep the
- * same logic and follow the same code paths.
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 var util_1 = __webpack_require__(1);
@@ -18873,15 +18803,6 @@ exports.RepoInfo = RepoInfo;
 
 //# sourceMappingURL=RepoInfo.js.map
 
-MuiThemeProvider.childContextTypes = {
-  muiTheme: _propTypes2.default.object.isRequired
-};
-MuiThemeProvider.propTypes = process.env.NODE_ENV !== "production" ? {
-  children: _propTypes2.default.element,
-  muiTheme: _propTypes2.default.object
-} : {};
-exports.default = MuiThemeProvider;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 /***/ }),
 /* 177 */
@@ -18960,22 +18881,6 @@ exports.ServerActions = ServerActions;
 
 //# sourceMappingURL=ServerActions.js.map
 
-
-
-
-
-/*
-* This is a dummy function to check if the function name has been altered by minification.
-* If the function has been minified and NODE_ENV !== 'production', warn the user.
-*/
-function isCrushed() {}
-
-if (process.env.NODE_ENV !== 'production' && typeof isCrushed.name === 'string' && isCrushed.name !== 'isCrushed') {
-  __webpack_require__.i(__WEBPACK_IMPORTED_MODULE_5__utils_warning__["a" /* default */])('You are currently using minified code outside of NODE_ENV === \'production\'. ' + 'This means that you are running a slower development build of Redux. ' + 'You can use loose-envify (https://github.com/zertosh/loose-envify) for browserify ' + 'or DefinePlugin for webpack (http://stackoverflow.com/questions/30030031) ' + 'to ensure you have the correct code for your production build.');
-}
-
-
-/* WEBPACK VAR INJECTION */}.call(__webpack_exports__, __webpack_require__(0)))
 
 /***/ }),
 /* 178 */
@@ -19384,19 +19289,6 @@ var SyncPoint = /** @class */ (function () {
             var queryId = query.queryIdentifier();
             return util_2.safeGet(this.views_, queryId);
         }
-        else if (path === '$value') {
-            throw new Error('Query.orderByChild: "$value" is invalid.  Use Query.orderByValue() instead.');
-        }
-        validation_1.validatePathString('Query.orderByChild', 1, path, false);
-        this.validateNoPreviousOrderByCall_('Query.orderByChild');
-        var parsedPath = new Path_1.Path(path);
-        if (parsedPath.isEmpty()) {
-            throw new Error('Query.orderByChild: cannot pass in empty path.  Use Query.orderByValue() instead.');
-        }
-        var index = new PathIndex_1.PathIndex(parsedPath);
-        var newParams = this.queryParams_.orderBy(index);
-        Query.validateQueryEndpoints_(newParams);
-        return new Query(this.repo, this.path, newParams, /*orderByCalled=*/ true);
     };
     /**
      * @param {!Query} query
@@ -20125,9 +20017,13 @@ exports.validatePriorityNode = function (priorityNode) {
 "use strict";
 
 /**
- * SyncPoint represents a single location in a SyncTree with 1 or more event registrations, meaning we need to
- * maintain 1 or more Views at this location to cache server data and raise appropriate events for server changes
- * and user writes (set, transaction, update).
+ * Copyright 2017 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -22364,146 +22260,6 @@ exports.WebSocketConnection = WebSocketConnection;
  */
 
 
-/**
- * Copyright 2017 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-var IndexedFilter_1 = __webpack_require__(115);
-var PriorityIndex_1 = __webpack_require__(21);
-var Node_1 = __webpack_require__(25);
-var ChildrenNode_1 = __webpack_require__(22);
-/**
- * Filters nodes by range and uses an IndexFilter to track any changes after filtering the node
- *
- * @constructor
- * @implements {NodeFilter}
- */
-var RangedFilter = /** @class */ (function () {
-    /**
-     * @param {!QueryParams} params
-     */
-    function RangedFilter(params) {
-        this.indexedFilter_ = new IndexedFilter_1.IndexedFilter(params.getIndex());
-        this.index_ = params.getIndex();
-        this.startPost_ = RangedFilter.getStartPost_(params);
-        this.endPost_ = RangedFilter.getEndPost_(params);
-    }
-    /**
-     * @return {!NamedNode}
-     */
-    RangedFilter.prototype.getStartPost = function () {
-        return this.startPost_;
-    };
-    /**
-     * @return {!NamedNode}
-     */
-    RangedFilter.prototype.getEndPost = function () {
-        return this.endPost_;
-    };
-    /**
-     * @param {!NamedNode} node
-     * @return {boolean}
-     */
-    RangedFilter.prototype.matches = function (node) {
-        return (this.index_.compare(this.getStartPost(), node) <= 0 &&
-            this.index_.compare(node, this.getEndPost()) <= 0);
-    };
-    /**
-     * @inheritDoc
-     */
-    RangedFilter.prototype.updateChild = function (snap, key, newChild, affectedPath, source, optChangeAccumulator) {
-        if (!this.matches(new Node_1.NamedNode(key, newChild))) {
-            newChild = ChildrenNode_1.ChildrenNode.EMPTY_NODE;
-        }
-        return this.indexedFilter_.updateChild(snap, key, newChild, affectedPath, source, optChangeAccumulator);
-    };
-    /**
-     * @inheritDoc
-     */
-    RangedFilter.prototype.updateFullNode = function (oldSnap, newSnap, optChangeAccumulator) {
-        if (newSnap.isLeafNode()) {
-            // Make sure we have a children node with the correct index, not a leaf node;
-            newSnap = ChildrenNode_1.ChildrenNode.EMPTY_NODE;
-        }
-        var filtered = newSnap.withIndex(this.index_);
-        // Don't support priorities on queries
-        filtered = filtered.updatePriority(ChildrenNode_1.ChildrenNode.EMPTY_NODE);
-        var self = this;
-        newSnap.forEachChild(PriorityIndex_1.PRIORITY_INDEX, function (key, childNode) {
-            if (!self.matches(new Node_1.NamedNode(key, childNode))) {
-                filtered = filtered.updateImmediateChild(key, ChildrenNode_1.ChildrenNode.EMPTY_NODE);
-            }
-        });
-        return this.indexedFilter_.updateFullNode(oldSnap, filtered, optChangeAccumulator);
-    };
-    /**
-     * @inheritDoc
-     */
-    RangedFilter.prototype.updatePriority = function (oldSnap, newPriority) {
-        // Don't support priorities on queries
-        return oldSnap;
-    };
-    /**
-     * @inheritDoc
-     */
-    RangedFilter.prototype.filtersNodes = function () {
-        return true;
-    };
-    /**
-     * @inheritDoc
-     */
-    RangedFilter.prototype.getIndexedFilter = function () {
-        return this.indexedFilter_;
-    };
-    /**
-     * @inheritDoc
-     */
-    RangedFilter.prototype.getIndex = function () {
-        return this.index_;
-    };
-    /**
-     * @param {!QueryParams} params
-     * @return {!NamedNode}
-     * @private
-     */
-    RangedFilter.getStartPost_ = function (params) {
-        if (params.hasStart()) {
-            var startName = params.getIndexStartName();
-            return params.getIndex().makePost(params.getIndexStartValue(), startName);
-        }
-        else {
-            return params.getIndex().minPost();
-        }
-    };
-    /**
-     * @param {!QueryParams} params
-     * @return {!NamedNode}
-     * @private
-     */
-    RangedFilter.getEndPost_ = function (params) {
-        if (params.hasEnd()) {
-            var endName = params.getIndexEndName();
-            return params.getIndex().makePost(params.getIndexEndValue(), endName);
-        }
-        else {
-            return params.getIndex().maxPost();
-        }
-    };
-    return RangedFilter;
-}());
-exports.RangedFilter = RangedFilter;
 
 
 
@@ -24380,8 +24136,6 @@ module.exports = function xhrAdapter(config) {
         requestHeaders[config.xsrfHeaderName] = xsrfValue;
       }
     }
-    return ResumableUploadStatus;
-}());
 
     // Add headers to the request
     if ('setRequestHeader' in request) {
@@ -24802,7 +24556,6 @@ exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(Landing);
 
 "use strict";
 
-//# sourceMappingURL=json.js.map
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -25735,14 +25488,6 @@ var Symbol = __WEBPACK_IMPORTED_MODULE_0__root_js__["a" /* default */].Symbol;
 
 "use strict";
 
-exports.f = __webpack_require__(48) ? gOPD : function getOwnPropertyDescriptor(O, P) {
-  O = toIObject(O);
-  P = toPrimitive(P, true);
-  if (IE8_DOM_DEFINE) try {
-    return gOPD(O, P);
-  } catch (e) { /* empty */ }
-  if (has(O, P)) return createDesc(!pIE.f.call(O, P), O[P]);
-};
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -25987,7 +25732,6 @@ function getStyles(props, context) {
 
   return styles;
 }
-module.exports = exports["default"];
 
 var Menu = function (_Component) {
   (0, _inherits3.default)(Menu, _Component);
@@ -27179,7 +26923,6 @@ function extendChildren(children, extendedProps, extendedChildren) {
 
 "use strict";
 
-var _propTypes2 = _interopRequireDefault(_propTypes);
 
 Object.defineProperty(exports, "__esModule", {
   value: true
@@ -27261,9 +27004,7 @@ exports.default = {
  * LICENSE file in the root directory of this source tree.
  */
 
-var _PopoverAnimationDefault2 = _interopRequireDefault(_PopoverAnimationDefault);
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 // React 15.5 references this module, and assumes PropTypes are still callable in production.
 // Therefore we re-export development-only version with all the PropTypes checks here.
@@ -27750,12 +27491,6 @@ module.exports = function(isValidElement, throwOnDirectAccess) {
     if (propValue['@@toStringTag'] === 'Symbol') {
       return true;
     }
-  }, {
-    key: 'getAnchorPosition',
-    value: function getAnchorPosition(el) {
-      if (!el) {
-        el = _reactDom2.default.findDOMNode(this);
-      }
 
     // Fallback for non-spec compliant Symbols which are polyfilled.
     if (typeof Symbol === 'function' && propValue instanceof Symbol) {
@@ -28035,8 +27770,6 @@ var CallbackQueue = function () {
     this._contexts = null;
     this._arg = arg;
   }
-  // Make `instanceof Error` still work for returned errors.
-  PropTypeError.prototype = Error.prototype;
 
   /**
    * Enqueues a callback to be invoked when `notifyAll` is invoked.
@@ -28389,11 +28122,6 @@ module.exports = ReactDOMComponentFlags;
  *
  */
 
-/**
- * Support style names that may come passed in prefixed by adding permutations
- * of vendor prefixes.
- */
-var prefixes = ['Webkit', 'ms', 'Moz', 'O'];
 
 
 var _assign = __webpack_require__(14);
@@ -28633,8 +28361,6 @@ module.exports = ReactEmptyComponent;
  */
 
 
-module.exports = ReactDOMSelect;
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(0)))
 
 var ReactFeatureFlags = {
   // When true, call console.time() before and .timeEnd() after each top-level
@@ -31709,27 +31435,6 @@ module.exports = ReactNoopUpdateQueue;
 var ITERATOR_SYMBOL = typeof Symbol === 'function' && Symbol.iterator;
 var FAUX_ITERATOR_SYMBOL = '@@iterator'; // Before Symbol spec.
 
-
-exports.__esModule = true;
-
-var _getDisplayName = __webpack_require__(674);
-
-var _getDisplayName2 = _interopRequireDefault(_getDisplayName);
-
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
-
-var wrapDisplayName = function wrapDisplayName(BaseComponent, hocName) {
-  return hocName + '(' + (0, _getDisplayName2.default)(BaseComponent) + ')';
-};
-
-exports.default = wrapDisplayName;
-
-/***/ }),
-/* 293 */
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (immutable) */ __webpack_exports__["a"] = compose;
 /**
  * Returns the iterator method function contained on the iterable object.
  *
@@ -33223,16 +32928,6 @@ exports.interceptServerData = function (ref, callback) {
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-var __extends = (this && this.__extends) || (function () {
-    var extendStatics = Object.setPrototypeOf ||
-        ({ __proto__: [] } instanceof Array && function (d, b) { d.__proto__ = b; }) ||
-        function (d, b) { for (var p in b) if (b.hasOwnProperty(p)) d[p] = b[p]; };
-    return function (d, b) {
-        extendStatics(d, b);
-        function __() { this.constructor = d; }
-        d.prototype = b === null ? Object.create(b) : (__.prototype = b.prototype, new __());
-    };
-})();
 Object.defineProperty(exports, "__esModule", { value: true });
 var RepoInfo_1 = __webpack_require__(176);
 var PersistentConnection_1 = __webpack_require__(175);
@@ -33400,10 +33095,19 @@ exports.AuthTokenProvider = AuthTokenProvider;
 "use strict";
 
 /**
- * @param {!Path} path
- * @param {Array.<number>=} excludeSets A specific set to exclude
- * @return {Node}
- * @private
+ * Copyright 2017 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 var ImmutableTree_1 = __webpack_require__(114);
@@ -35003,57 +34707,6 @@ var SyncTree = /** @class */ (function () {
     SyncTree.prototype.queryKeyForTag_ = function (tag) {
         return this.tagToQueryMap_['_' + tag];
     };
-    return ListenComplete;
-}());
-exports.ListenComplete = ListenComplete;
-
-//# sourceMappingURL=ListenComplete.js.map
-
-
-/***/ }),
-/* 317 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/**
- * Copyright 2017 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-var Operation_1 = __webpack_require__(45);
-var Overwrite_1 = __webpack_require__(180);
-var Path_1 = __webpack_require__(16);
-var util_1 = __webpack_require__(1);
-/**
- * @param {!OperationSource} source
- * @param {!Path} path
- * @param {!ImmutableTree.<!Node>} children
- * @constructor
- * @implements {Operation}
- */
-var Merge = /** @class */ (function () {
-    function Merge(
-        /**@inheritDoc */ source, 
-        /**@inheritDoc */ path, 
-        /**@inheritDoc */ children) {
-        this.source = source;
-        this.path = path;
-        this.children = children;
-        /** @inheritDoc */
-        this.type = Operation_1.OperationType.MERGE;
-    }
     /**
      * Return the tag associated with the given query.
      * @param {!Query} query
@@ -35311,49 +34964,6 @@ var WriteTree = /** @class */ (function () {
         }
         return null;
     };
-    return StatsCollection;
-}());
-exports.StatsCollection = StatsCollection;
-
-//# sourceMappingURL=StatsCollection.js.map
-
-
-/***/ }),
-/* 319 */
-/***/ (function(module, exports, __webpack_require__) {
-
-"use strict";
-
-/**
- * Copyright 2017 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *   http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-Object.defineProperty(exports, "__esModule", { value: true });
-var util_1 = __webpack_require__(1);
-var util_2 = __webpack_require__(6);
-var StatsListener_1 = __webpack_require__(187);
-// Assuming some apps may have a short amount of time on page, and a bulk of firebase operations probably
-// happen on page load, we try to report our first set of stats pretty quickly, but we wait at least 10
-// seconds to try to ensure the Firebase connection is established / settled.
-var FIRST_STATS_MIN_TIME = 10 * 1000;
-var FIRST_STATS_MAX_TIME = 30 * 1000;
-// We'll continue to report stats on average every 5 minutes.
-var REPORT_STATS_INTERVAL = 5 * 60 * 1000;
-/**
- * @constructor
- */
-var StatsReporter = /** @class */ (function () {
     /**
      * Remove a write (either an overwrite or merge) that has been successfully acknowledge by the server. Recalculates
      * the tree if necessary.  We return true if it may have been visible, meaning views need to reevaluate.
@@ -35413,8 +35023,6 @@ var StatsReporter = /** @class */ (function () {
             }
             return true;
         }
-        // queue our next run.
-        util_2.setTimeoutNonBlocking(this.reportStats_.bind(this), Math.floor(Math.random() * 2 * REPORT_STATS_INTERVAL));
     };
     /**
      * Return a complete snapshot for the given path if there's visible write data at that path, else null.
@@ -36215,7 +35823,19 @@ exports.StatsReporter = StatsReporter;
 "use strict";
 
 /**
- * @extends {EventEmitter}
+ * Copyright 2017 Google Inc.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *   http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
  */
 Object.defineProperty(exports, "__esModule", { value: true });
 var util_1 = __webpack_require__(1);
@@ -37287,7 +36907,6 @@ var EventGenerator = /** @class */ (function () {
             change.childName, change.snapshotNode, this.index_);
             return change;
         }
-        return obj;
     };
     /**
      * @param {!Change} a
@@ -37693,13 +37312,6 @@ var ChildEventRegistration = /** @class */ (function () {
                         // Exact match on each key.
                         return util_1.every(this.callbacks_, function (eventType, cb) { return other.callbacks_[eventType] === cb; });
                     }
-                }
-                if (!oldChild.equals(newChild)) {
-                    var newEventSnap = this.filter_.updateChild(oldEventSnap.getNode(), childKey, newChild, childChangePath, source, accumulator);
-                    newViewCache = oldViewCache.updateEventSnap(newEventSnap, oldEventSnap.isFullyInitialized(), this.filter_.filtersNodes());
-                }
-                else {
-                    newViewCache = oldViewCache;
                 }
             }
         }
@@ -38442,24 +38054,6 @@ var ViewProcessor = /** @class */ (function () {
                             !overwrite.path.isEmpty());
                 newViewCache = this.applyServerOverwrite_(oldViewCache, overwrite.path, overwrite.snap, writesCache, completeCache, filterServerNode, accumulator);
             }
-            // Delete notification data from payload before sending to the page.
-            var notificationData = msgPayload['notification'];
-            delete msgPayload['notification'];
-            var internalMsg = __WEBPACK_IMPORTED_MODULE_2__models_worker_page_message__["a" /* default */].createNewMsg(__WEBPACK_IMPORTED_MODULE_2__models_worker_page_message__["a" /* default */].TYPES_OF_MSG.NOTIFICATION_CLICKED, msgPayload);
-            // Attempt to send a message to the client to handle the data
-            // Is affected by: https://github.com/slightlyoff/ServiceWorker/issues/728
-            return _this.attemptToMessageClient_(windowClient, internalMsg);
-        });
-        event.waitUntil(promiseChain);
-    };
-    /**
-     * @private
-     * @param {Object} msgPayload
-     * @return {NotificationOptions|undefined}
-     */
-    SWController.prototype.getNotificationData_ = function (msgPayload) {
-        if (!msgPayload) {
-            return;
         }
         else if (operation.type === Operation_1.OperationType.MERGE) {
             var merge = operation;
@@ -38971,6 +38565,7 @@ exports.ViewProcessor = ViewProcessor;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
+
 /**
  * Copyright 2017 Google Inc.
  *
@@ -39230,7 +38825,6 @@ exports.LimitedFilter = LimitedFilter;
 
 //# sourceMappingURL=LimitedFilter.js.map
 
-/* WEBPACK VAR INJECTION */}.call(exports, __webpack_require__(53)))
 
 /***/ }),
 /* 336 */
@@ -39343,14 +38937,7 @@ exports.TransportManager = TransportManager;
 /***/ (function(module, exports, __webpack_require__) {
 
 "use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony export (immutable) */ __webpack_exports__["registerStorage"] = registerStorage;
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__firebase_app__ = __webpack_require__(40);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__src_implementation_string__ = __webpack_require__(72);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__src_implementation_taskenums__ = __webpack_require__(73);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__src_implementation_xhriopool__ = __webpack_require__(360);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__src_reference__ = __webpack_require__(205);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__src_service__ = __webpack_require__(361);
+
 /**
  * Copyright 2017 Google Inc.
  *
@@ -43855,8 +43442,7 @@ exports.stringLength = function (str) {
 /* 374 */
 /***/ (function(module, exports, __webpack_require__) {
 
-  // Copy context to instance
-  utils.extend(instance, context);
+"use strict";
 
 /**
  * Copyright 2017 Google Inc.
@@ -44091,9 +43677,6 @@ CancelToken.source = function source() {
 
 module.exports = CancelToken;
 
-  this.interceptors.response.forEach(function pushResponseInterceptors(interceptor) {
-    chain.push(interceptor.fulfilled, interceptor.rejected);
-  });
 
 /***/ }),
 /* 377 */
@@ -44101,16 +43684,6 @@ module.exports = CancelToken;
 
 "use strict";
 
-// Provide aliases for supported request methods
-utils.forEach(['delete', 'get', 'head', 'options'], function forEachMethodNoData(method) {
-  /*eslint func-names:0*/
-  Axios.prototype[method] = function(url, config) {
-    return this.request(utils.merge(config || {}, {
-      method: method,
-      url: url
-    }));
-  };
-});
 
 var defaults = __webpack_require__(121);
 var utils = __webpack_require__(27);
@@ -44190,8 +43763,6 @@ utils.forEach(['post', 'put', 'patch'], function forEachMethodWithData(method) {
 
 module.exports = Axios;
 
-module.exports = InterceptorManager;
-
 
 /***/ }),
 /* 378 */
@@ -44251,12 +43822,6 @@ InterceptorManager.prototype.forEach = function forEach(fn) {
 
 module.exports = InterceptorManager;
 
-  utils.forEach(
-    ['delete', 'get', 'head', 'post', 'put', 'patch', 'common'],
-    function cleanHeaderConfig(method) {
-      delete config.headers[method];
-    }
-  );
 
 /***/ }),
 /* 379 */
@@ -44378,7 +43943,6 @@ module.exports = function enhanceError(error, config, code, request, response) {
   return error;
 };
 
-var utils = __webpack_require__(27);
 
 /***/ }),
 /* 381 */
@@ -44417,7 +43981,7 @@ module.exports = function settle(resolve, reject, response) {
 /* 382 */
 /***/ (function(module, exports, __webpack_require__) {
 
-var chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
+"use strict";
 
 
 var utils = __webpack_require__(27);
@@ -44482,10 +44046,6 @@ function btoa(input) {
 
 module.exports = btoa;
 
-    utils.forEach(params, function serialize(val, key) {
-      if (val === null || typeof val === 'undefined') {
-        return;
-      }
 
 /***/ }),
 /* 384 */
@@ -44493,15 +44053,6 @@ module.exports = btoa;
 
 "use strict";
 
-      utils.forEach(val, function parseValue(v) {
-        if (utils.isDate(v)) {
-          v = v.toISOString();
-        } else if (utils.isObject(v)) {
-          v = JSON.stringify(v);
-        }
-        parts.push(encode(key) + '=' + encode(v));
-      });
-    });
 
 var utils = __webpack_require__(27);
 
@@ -44591,16 +44142,12 @@ module.exports = function combineURLs(baseURL, relativeURL) {
     : baseURL;
 };
 
-module.exports = (
-  utils.isStandardBrowserEnv() ?
 
 /***/ }),
 /* 386 */
 /***/ (function(module, exports, __webpack_require__) {
 
-        if (utils.isNumber(expires)) {
-          cookie.push('expires=' + new Date(expires).toGMTString());
-        }
+"use strict";
 
 
 var utils = __webpack_require__(27);
@@ -44676,12 +44223,6 @@ module.exports = function isAbsoluteURL(url) {
   return /^([a-z][a-z\d\+\-\.]*:)?\/\//i.test(url);
 };
 
-  // Standard browser envs have full support of the APIs needed to test
-  // whether the request URL is of the same origin as current location.
-  (function standardBrowserEnv() {
-    var msie = /(msie|trident)/i.test(navigator.userAgent);
-    var urlParsingNode = document.createElement('a');
-    var originURL;
 
 /***/ }),
 /* 388 */
@@ -44836,7 +44377,6 @@ module.exports = function parseHeaders(headers) {
   return parsed;
 };
 
-var _react2 = _interopRequireDefault(_react);
 
 /***/ }),
 /* 391 */
@@ -44871,7 +44411,6 @@ module.exports = function spread(callback) {
   };
 };
 
-var _AppBar2 = _interopRequireDefault(_AppBar);
 
 /***/ }),
 /* 392 */
@@ -44879,7 +44418,6 @@ var _AppBar2 = _interopRequireDefault(_AppBar);
 
 "use strict";
 
-var _Popover2 = _interopRequireDefault(_Popover);
 
 Object.defineProperty(exports, "__esModule", {
   value: true
