@@ -95,5 +95,3 @@ const mapStateToProps = (state) => {
 }
 
 export default connect(mapStateToProps, null)(SignUp);
-
-// export default SignUp;
