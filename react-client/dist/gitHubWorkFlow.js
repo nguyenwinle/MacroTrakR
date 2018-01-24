@@ -11,7 +11,7 @@
         // git checkout -b featBranch
 
     //*******   Step Three   ***********//
-        // Develop! Code and make changes on the featBranch that you created in the prior step
+        // DEVELOPE! Code and make changes on the featBranch that you created in the prior step
 
 // these two commands adds and then commits your changes
 

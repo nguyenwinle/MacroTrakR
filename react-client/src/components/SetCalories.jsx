@@ -3,7 +3,7 @@ import React from 'react';
 const SetCalories = (props) => {
     return (
         <span>
-            1600 { "   -   "}
+            {props.calories}
         </span>
     )
 }
