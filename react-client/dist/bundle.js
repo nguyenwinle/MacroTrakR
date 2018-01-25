@@ -47213,12 +47213,14 @@ var SignUp = function (_React$Component) {
             var email = this.props.email;
 
             var redirect = void 0;
+            console.log('baba', email);
             if (email) {
                 redirect = _react2.default.createElement(_reactRouterDom.Redirect, { to: '/UserStats' });
             }
             return _react2.default.createElement(
                 'div',
                 { className: 'signupForm' },
+                redirect,
                 _react2.default.createElement(
                     _MuiThemeProvider2.default,
                     null,
