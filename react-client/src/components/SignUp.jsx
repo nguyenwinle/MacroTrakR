@@ -2,7 +2,6 @@ import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-
 import React from 'react';
 import axios from 'axios';
 import { Link, Redirect } from 'react-router-dom';
@@ -68,11 +67,13 @@ class SignUp extends React.Component {
     render() {
         const { email } = this.props;
         let redirect;
+        console.log('baba', email)
         if (email) {
             redirect = <Redirect to='/UserStats'/>
         } 
         return(
         <div className = 'signupForm'>
+         {redirect}
           <MuiThemeProvider>
             <div>
               <h2>Create New Account</h2>
