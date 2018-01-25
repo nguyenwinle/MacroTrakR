@@ -23,7 +23,7 @@ import AppBar from 'material-ui/AppBar/AppBar';
 class Landing extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       items: [],
       searchItem : "",
       caloriesLeft : null,
@@ -130,14 +130,43 @@ class Landing extends React.Component {
       <DailySummary/>
       <USDAsearch/>
       <div>
+      {/* <List
+      items={this.state.items}
+      searchItem={this.state.searchItem}
+      /> */}
+      <div>
+      {this.state.caloriesLeft ? "Based on a 2000 calorie diet, you currently have " + this.state.caloriesLeft + " calories left for the day" : ""}<br/><br/>
+      </div>
+      <div>
         <Paper zDepth={3}>
         {this.state.allFoods ? this.state.allFoods.map((entry, index) =>
-          <li key={index} className="listItem">{entry.searchItem}  {"    "} {entry.calories} 
+          <li key={index} className="listItem">{entry.searchItem}  {"    "} {entry.calories}
         </li>) : "" }
         </Paper>
-      </div> 
-      {/* <AppBar>
-      </AppBar> */}
+      </div>
+      <div>
+
+     {/* <input type="submit" value="how many calories do i have left" onClick={this.handleGetFromDB}/><br/><br/>       */}
+    </div>
+      </div>
+
+        {/* <Paper zDepth={3} className='footer'> */}
+          {/* <BottomNavigation selectedIndex={this.state.selectedIndex}> */}
+          {/* <BottomNavigationItem */}
+          {/* label="Diary"
+          icon={recentsIcon}
+          onClick={this.handleGetAllEntriesFromDB}
+          /> */}
+          <FloatingActionButton type="submit" value="add to my daily intake" onClick={this.handleSaveToDB}>
+            <ContentAdd />
+         </FloatingActionButton><br/><br/>
+        {/* <BottomNavigationItem */}
+        {/* label="Nearby"
+        icon={nearbyIcon}
+        onClick={() => this.select(2)}
+        /> */}
+        {/* </BottomNavigation> */}
+        {/* </Paper> */}
     </div>
     )
   }

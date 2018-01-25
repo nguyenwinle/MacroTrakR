@@ -1,3 +1,7 @@
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import AppBar from 'material-ui/AppBar';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
 import React from 'react';
 import { firebaseApp } from '../config/firebase.js';
 import {
@@ -25,7 +29,7 @@ class SignIn extends React.Component {
         this.changePasswordState = this.changePasswordState.bind(this)
         this.signIn = this.signIn.bind(this)
     }
-    
+
 
     changeEmailState(event) {
         this.setState({
@@ -63,35 +67,35 @@ class SignIn extends React.Component {
             )
           }
         return(
-            <div className='form-inline' id="banana" style={{ margin: "5%" }}>
-            <h2>SignIn</h2>
-                <div className='form-group'></div>
-                <input 
-                className='form-control'
-                type='text'
-                style={{ marginRight: '5px'}}
-                placeholder='email'
-                onChange={this.changeEmailState}
-                />
-                <input 
-                className='form-control'
-                type='password'
-                style={{ marginRight: '5px'}}
-                placeholder='password'
-                onChange={this.changePasswordState}
-                />
-                <button 
-                className='btn btn-primary'
-                type='button'
-                onClick={() => this.signIn()}
-                >
-                SignIn
-                </button>
-                <div>{this.state.error.message}</div>
-                <div><Link to={'/'}>Sign me up!</Link></div>
-            </div>
+          <div className = 'loginForm'>
+            <MuiThemeProvider>
+              <div>
+              <h1>Login</h1>
+               <TextField
+                 hintText="Enter your email"
+                 floatingLabelText="Email"
+                 onChange={this.changeEmailState}
+                 />
+               <br/>
+                 <TextField
+                   type="password"
+                   hintText="Enter your Password"
+                   floatingLabelText="Password"
+                   onChange={this.changePasswordState}
+                   />
+                 <br/>
+
+                 <RaisedButton label="Submit" primary={true} style={style} onClick={() => this.signIn()}/>
+                 <div>{this.state.error.message}</div>
+                 <div><Link to={'/'}>Not registered? Sign up!</Link></div>
+             </div>
+             </MuiThemeProvider>
+          </div>
         )
     }
 }
+const style = {
+margin: 15,
+};
 
 export default SignIn;
