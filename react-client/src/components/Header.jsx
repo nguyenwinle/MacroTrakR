@@ -48,8 +48,11 @@ class Header extends React.Component {
 render() {
   return (
   <header>
-  
-  <AppBar>
+
+  <AppBar
+    title = "MacroTrakR"
+    iconClassNameRight="muidocs-icon-navigation-expand-more"
+  >
   <RaisedButton onClick={this.handleClick}label="Menu"/>
   <Popover
   open={this.state.open}
@@ -77,10 +80,10 @@ render() {
   </Menu>
   </Popover>
   </AppBar>
-  
+
   </header>
   )}
 }
-  
+
 
 export default Header;

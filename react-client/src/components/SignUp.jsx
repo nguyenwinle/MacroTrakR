@@ -70,10 +70,10 @@ class SignUp extends React.Component {
             return <Redirect to='/UserStats' />
         }
         return(
-        <div className = 'container'>
+        <div className = 'signupForm'>
           <MuiThemeProvider>
             <div>
-              <h1> Sign Up</h1>
+              <h2>Create New Account</h2>
              <TextField
                hintText="Enter your First Name"
                floatingLabelText="First Name"

@@ -68,9 +68,10 @@ class SignIn extends React.Component {
             )
           }
         return(
-          <div className = 'container'>
+          <div className = 'loginForm'>
             <MuiThemeProvider>
               <div>
+              <h1>Login</h1>
                <TextField
                  hintText="Enter your email"
                  floatingLabelText="Email"

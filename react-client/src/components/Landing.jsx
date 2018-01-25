@@ -25,7 +25,7 @@ const nearbyIcon = <IconLocationOn />;
 class Landing extends React.Component {
   constructor(props) {
     super(props);
-    this.state = { 
+    this.state = {
       items: [],
       searchItem : "",
       caloriesLeft : null,
@@ -137,11 +137,11 @@ class Landing extends React.Component {
     };
 
     return (
-      
+
     <div className="mainCenter">
       <USDAsearch/>
       <div>
-      <List 
+      <List
       items={this.state.items}
       searchItem={this.state.searchItem}
       />
@@ -151,16 +151,16 @@ class Landing extends React.Component {
       <div>
         <Paper zDepth={3}>
         {this.state.allFoods ? this.state.allFoods.map((entry, index) =>
-          <li key={index} className="listItem">{entry.searchItem}  {"    "} {entry.calories} 
+          <li key={index} className="listItem">{entry.searchItem}  {"    "} {entry.calories}
         </li>) : "" }
         </Paper>
       </div>
       <div>
-     
+
      {/* <input type="submit" value="how many calories do i have left" onClick={this.handleGetFromDB}/><br/><br/>       */}
-    </div> 
+    </div>
       </div>
-  
+
         {/* <Paper zDepth={3} className='footer'> */}
           {/* <BottomNavigation selectedIndex={this.state.selectedIndex}> */}
           {/* <BottomNavigationItem */}
