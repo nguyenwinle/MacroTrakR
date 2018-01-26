@@ -10,6 +10,8 @@ import {
   import axios from 'axios';
   import Landing from './Landing.jsx';
 import SetCalories from './SetCalories.jsx';
+import Paper from 'material-ui/Paper';
+
 
 class UserStats extends React.Component {
     constructor(props){
@@ -172,6 +174,7 @@ class UserStats extends React.Component {
         return (
             <div>
                 <SetCalories calories={this.state.calories}/>
+                <Paper>
                 <form>
                     <label>
                     Age:<br/>
@@ -222,6 +225,7 @@ class UserStats extends React.Component {
                     /><br/> <br/>
 
                 </form>
+                </Paper>
             </div>
         )
     }

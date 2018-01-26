@@ -128,7 +128,7 @@ class Landing extends React.Component {
     return (
     <div className="mainCenter">
       <DailySummary/>
-      <USDAsearch/>
+      {/* <USDAsearch/> */}
       <div>
       {/* <List
       items={this.state.items}
@@ -157,9 +157,9 @@ class Landing extends React.Component {
           icon={recentsIcon}
           onClick={this.handleGetAllEntriesFromDB}
           /> */}
-          <FloatingActionButton type="submit" value="add to my daily intake" onClick={this.handleSaveToDB}>
+          {/* <FloatingActionButton type="submit" value="add to my daily intake" onClick={this.handleSaveToDB}>
             <ContentAdd />
-         </FloatingActionButton><br/><br/>
+         </FloatingActionButton><br/><br/> */}
         {/* <BottomNavigationItem */}
         {/* label="Nearby"
         icon={nearbyIcon}
