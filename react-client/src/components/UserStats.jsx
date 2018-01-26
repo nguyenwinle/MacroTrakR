@@ -11,6 +11,7 @@ import {
   import Landing from './Landing.jsx';
 import SetCalories from './SetCalories.jsx';
 import Paper from 'material-ui/Paper';
+import DailySummary from './DailySummary.jsx';
 
 
 class UserStats extends React.Component {
@@ -173,7 +174,7 @@ class UserStats extends React.Component {
         // }
         return (
             <div>
-                <SetCalories calories={this.state.calories}/>
+                <DailySummary calories={this.state.calories}/>
                 <Paper>
                 <form>
                     <label>

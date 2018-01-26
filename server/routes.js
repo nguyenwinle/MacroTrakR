@@ -17,7 +17,9 @@ router.post('/searchNutrition', controller.searchNutrition.post);
 
 router.post('/userStats', controller.userStats.post);
 
-router.post('/usdaDB', searchBarController.usdaDB.post)
+router.post('/usdaDB', searchBarController.usdaDB.post);
+
+router.get('/usdaReport', searchBarController.usdaReport.get);
 
 
 

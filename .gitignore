@@ -1,2 +1,3 @@
 ## API keys ##
 react-client/src/config/firebase.js
+server/config.js
