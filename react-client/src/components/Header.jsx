@@ -22,7 +22,7 @@ class Header extends React.Component {
 
     this.handleToggle = this.handleToggle.bind(this)
     this.handleClick = this.handleClick.bind(this)
-    // this.handleRequestClose = this.handleRequestClose.bind(this)
+    this.handleRequestClose = this.handleRequestClose.bind(this)
   }
 
   signOut() {
@@ -60,7 +60,7 @@ render() {
 
   <AppBar
     title = "MacroTrakR"
-    onLeftIconButtonTouchTap={this.onClick}
+    // onLeftIconButtonTouchTap={this.onClick}
     onClick = {this.handleToggle}
   >
   <Drawer
