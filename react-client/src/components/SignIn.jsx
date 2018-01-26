@@ -1,4 +1,4 @@
-import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -68,7 +68,7 @@ class SignIn extends React.Component {
           }
         return(
           <div className = 'loginForm'>
-            <MuiThemeProvider>
+            {/* <MuiThemeProvider> */}
               <div>
               <h1>Login</h1>
                <TextField
@@ -89,7 +89,7 @@ class SignIn extends React.Component {
                  <div>{this.state.error.message}</div>
                  <div><Link to={'/'}>Not registered? Sign up!</Link></div>
              </div>
-             </MuiThemeProvider>
+             {/* </MuiThemeProvider> */}
           </div>
         )
     }

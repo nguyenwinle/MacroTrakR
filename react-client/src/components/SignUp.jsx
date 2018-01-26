@@ -74,7 +74,7 @@ class SignUp extends React.Component {
         return(
         <div className = 'signupForm'>
          {redirect}
-          <MuiThemeProvider>
+          {/* <MuiThemeProvider> */}
             <div>
               <h2>Create New Account</h2>
              <TextField
@@ -111,7 +111,7 @@ class SignUp extends React.Component {
            <div>{this.state.error.message}</div>
            <div><Link to={'/SignIn'}>Already a user? Sign in instead.</Link></div>
             </div>
-           </MuiThemeProvider>
+           {/* </MuiThemeProvider> */}
         </div>
 
         )

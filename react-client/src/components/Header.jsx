@@ -6,6 +6,9 @@ import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
+import Drawer from 'material-ui/Drawer';
+
+
 //the header creates links that can be used to navigate between routes
 
 
@@ -15,9 +18,9 @@ class Header extends React.Component {
     this.state = {
       open: false,
     }
-
+    this.handleToggle = this.handleToggle.bind(this)
     this.handleClick = this.handleClick.bind(this)
-    this.handleRequestClose = this.handleRequestClose.bind(this)
+    // this.handleRequestClose = this.handleRequestClose.bind(this)
   }
 
   signOut() {
@@ -39,6 +42,12 @@ class Header extends React.Component {
     });
   };
 
+  handleToggle() {
+    this.setState({open: !this.state.open});
+  } 
+
+
+
   handleRequestClose() {
     this.setState({
       open: false,
@@ -51,16 +60,19 @@ render() {
 
   <AppBar
     title = "MacroTrakR"
-    iconClassNameRight="muidocs-icon-navigation-expand-more"
+    // iconClassNameRight={this.toggleDrawer}
   >
-  <RaisedButton onClick={this.handleClick}label="Menu"/>
-  <Popover
+  <RaisedButton label="Toggle Drawer"
+          onClick={this.handleToggle}
+          label="Menu"/>
+  {/* <Popover
   open={this.state.open}
   anchorEl={this.state.anchorEl}
   // anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
   // targetOrigin={{horizontal: 'left', vertical: 'top'}}
   onRequestClose={this.handleRequestClose}
-  >
+  > */}
+  <Drawer open={this.state.open}>
   <Menu>
     <MenuItem>
       <Link to='/SignUp'>SignUp</Link>
@@ -78,7 +90,8 @@ render() {
     SignOut
     </MenuItem>
   </Menu>
-  </Popover>
+  </Drawer>
+  {/* </Popover> */}
   </AppBar>
 
   </header>
