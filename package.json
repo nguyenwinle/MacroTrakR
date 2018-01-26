@@ -47,6 +47,7 @@
     "react-dom": "^15.4.2",
     "react-redux": "^5.0.6",
     "react-router-dom": "^4.2.2",
+    "react-tap-event-plugin": "^3.0.2",
     "redux": "^3.7.2",
     "serve-favicon": "^2.4.5",
     "supertest": "^3.0.0"
