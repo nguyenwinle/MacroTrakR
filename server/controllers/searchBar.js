@@ -20,16 +20,20 @@ module.exports = {
     },
 
     usdaReport: {
-        get: function(req, res) {
-            // console.log('udsa key:' , usdaKey)
-            console.log('pose in controller invoked')
-            // let api_key =
-            let ndbno = req.body
-            console.log('ndbno number', ndbno.ndbno)
-            let url = "https://api.nal.usda.gov/ndb/reports/V2?ndbno=" + ndbno.ndbno + "&type=b&format=json&api_key=" + usdaKey.apiKey
-            axios.get(url)
+        get: (req, res) => {
+            let api_key = usdaKey.apiKey
+            let ndbno = req.query.ndbno
+            let type = "b";
+            let format = "json";
+            axios.get("http://api.nal.usda.gov/ndb/reports", {
+                params: {
+                    api_key: api_key,
+                    ndbno: ndbno,
+                    type: type,
+                    ndbno: ndbno
+                }
+            })
             .then((response) => {
-                console.log('search with ndbno number*******************************', response.data)
                 res.send(response.data)
             })
             .catch((error) => {

@@ -10,7 +10,8 @@ class USDAsearch extends React.Component {
             usdaList: [],
             usdaResults: [],
             testState: '',
-            ndbno: null
+            ndbno: null,
+            nutrients: []
         }
         this.handleSearchInput = this.handleSearchInput.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -42,31 +43,22 @@ handleSubmit(event) {
 }
 
 handleSubmitNDBNO() {
-    console.log('clientside handleSubmitNDBNO invoked')
+    console.log('ndbno state', this.state.ndbno)
     event.preventDefault()
+    console.log("clientside ndbno",this.state.ndbno)
     axios.get('banx/usdaReport', {
         params: {
             ndbno : this.state.ndbno
         }
     })
     .then((response) =>{
-        console.log('clientside response',response)
+        this.setState({
+            nutrients: response.data.report.food.nutrients
     })
+})
     .catch((error) => {
         console.log(error)
     })
-
-    // axios.get('/user', {
-    //     params: {
-    //       ID: 12345
-    //     }
-    //   })
-    //   .then(function (response) {
-    //     console.log(response);
-    //   })
-    //   .catch(function (error) {
-    //     console.log(error);
-    //   });
   
 }
 
@@ -75,7 +67,7 @@ handleClick(num) {
     this.setState({
         ndbno: num
     }, () => {
-        // this.handleSubmitNDBNO();
+        this.handleSubmitNDBNO();
     })
 }
 

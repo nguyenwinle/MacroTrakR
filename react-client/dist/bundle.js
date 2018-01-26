@@ -25345,7 +25345,8 @@ var USDAsearch = function (_React$Component) {
             usdaList: [],
             usdaResults: [],
             testState: '',
-            ndbno: null
+            ndbno: null,
+            nutrients: []
         };
         _this.handleSearchInput = _this.handleSearchInput.bind(_this);
         _this.handleSubmit = _this.handleSubmit.bind(_this);
@@ -25382,38 +25383,33 @@ var USDAsearch = function (_React$Component) {
     }, {
         key: 'handleSubmitNDBNO',
         value: function handleSubmitNDBNO() {
-            console.log('clientside handleSubmitNDBNO invoked');
+            var _this3 = this;
+
+            console.log('ndbno state', this.state.ndbno);
             event.preventDefault();
+            console.log("clientside ndbno", this.state.ndbno);
             _axios2.default.get('banx/usdaReport', {
                 params: {
                     ndbno: this.state.ndbno
                 }
             }).then(function (response) {
-                console.log('clientside response', response);
+                _this3.setState({
+                    nutrients: response.data.report.food.nutrients
+                });
             }).catch(function (error) {
                 console.log(error);
             });
-
-            // axios.get('/user', {
-            //     params: {
-            //       ID: 12345
-            //     }
-            //   })
-            //   .then(function (response) {
-            //     console.log(response);
-            //   })
-            //   .catch(function (error) {
-            //     console.log(error);
-            //   });
         }
     }, {
         key: 'handleClick',
         value: function handleClick(num) {
+            var _this4 = this;
+
             console.log('handleClick', this.props);
             this.setState({
                 ndbno: num
             }, function () {
-                // this.handleSubmitNDBNO();
+                _this4.handleSubmitNDBNO();
             });
         }
     }, {
@@ -46740,7 +46736,7 @@ var Header = function (_React$Component) {
 
     _this.handleToggle = _this.handleToggle.bind(_this);
     _this.handleClick = _this.handleClick.bind(_this);
-    // this.handleRequestClose = this.handleRequestClose.bind(this)
+    _this.handleRequestClose = _this.handleRequestClose.bind(_this);
     return _this;
   }
 
@@ -46787,9 +46783,9 @@ var Header = function (_React$Component) {
         _react2.default.createElement(
           _AppBar2.default,
           {
-            title: 'MacroTrakR',
-            onLeftIconButtonTouchTap: this.onClick,
-            onClick: this.handleToggle
+            title: 'MacroTrakR'
+            // onLeftIconButtonTouchTap={this.onClick}
+            , onClick: this.handleToggle
           },
           _react2.default.createElement(
             _Drawer2.default,
