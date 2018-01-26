@@ -1,6 +1,5 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import { firebaseApp } from '../config/firebase.js'
 import Popover from 'material-ui/Popover';
@@ -8,7 +7,6 @@ import Menu from 'material-ui/Menu';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 import Drawer from 'material-ui/Drawer';
-
 
 
 //the header creates links that can be used to navigate between routes
@@ -20,6 +18,8 @@ class Header extends React.Component {
     this.state = {
       open: false,
     }
+
+
     this.handleToggle = this.handleToggle.bind(this)
     this.handleClick = this.handleClick.bind(this)
     // this.handleRequestClose = this.handleRequestClose.bind(this)
@@ -46,9 +46,7 @@ class Header extends React.Component {
 
   handleToggle() {
     this.setState({open: !this.state.open});
-  } 
-
-
+  }
 
   handleRequestClose() {
     this.setState({
@@ -62,46 +60,27 @@ render() {
 
   <AppBar
     title = "MacroTrakR"
-    // iconClassNameRight={this.toggleDrawer}
+    onLeftIconButtonTouchTap={this.onClick}
+    onClick = {this.handleToggle}
   >
-  <RaisedButton label="Toggle Drawer"
-          onClick={this.handleToggle}
-          label="Menu"/>
-  <Drawer open={this.state.open}>
-  <Menu>
-    <MenuItem>
-      <Link to='/SignUp'>SignUp</Link>
-    </MenuItem>
-    <MenuItem  >
-      <Link to='/SignIn'>SignIn</Link>
-    </MenuItem>
-    <MenuItem >
-      <Link to='/'>Landing</Link>
-    </MenuItem>
-    <MenuItem >
-      <Link to='/UserStats'>Profile</Link>
-    </MenuItem>
-    <MenuItem >
-      <Link to='/Home'>Home</Link>
-    </MenuItem>
-    <MenuItem onClick={() => this.signOut()}>
-    SignOut
-    </MenuItem>
-  </Menu>
+  <Drawer
+    docked={false}
+    width={200}
+    open={this.state.open}
+    onRequestChange={(open) => this.setState({open})}
+  >
+    <MenuItem onClick={this.handleRequestClose}><Link to='/'>Home</Link></MenuItem>
+    <MenuItem onClick={this.handleRequestClose}><Link to='/SignUp'>Sign Up</Link></MenuItem>
+    <MenuItem onClick={this.handleRequestClose}>  <Link to='/SignIn'>Login</Link></MenuItem>
+    <MenuItem onClick={this.handleRequestClose}><Link to='/UserStats'>Profile</Link></MenuItem>
+    <MenuItem onClick={() => this.signOut()}>SignOut</MenuItem>
   </Drawer>
-  {/* </Popover> */}
+
   </AppBar>
 
   </header>
   )}
 }
 
-const mapStateToProps = (state) => {
-  const { email } = state;
-  return {
-    email
-  }
-}
 
-
-export default connect(mapStateToProps, null)(Header);
+export default Header;
