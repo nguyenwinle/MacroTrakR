@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { connect } from 'react-redux';
 import AppBar from 'material-ui/AppBar';
 import { firebaseApp } from '../config/firebase.js'
 import Popover from 'material-ui/Popover';
@@ -7,6 +8,7 @@ import Menu from 'material-ui/Menu';
 import RaisedButton from 'material-ui/RaisedButton';
 import MenuItem from 'material-ui/MenuItem';
 import Drawer from 'material-ui/Drawer';
+
 
 
 //the header creates links that can be used to navigate between routes
@@ -65,13 +67,6 @@ render() {
   <RaisedButton label="Toggle Drawer"
           onClick={this.handleToggle}
           label="Menu"/>
-  {/* <Popover
-  open={this.state.open}
-  anchorEl={this.state.anchorEl}
-  // anchorOrigin={{horizontal: 'left', vertical: 'bottom'}}
-  // targetOrigin={{horizontal: 'left', vertical: 'top'}}
-  onRequestClose={this.handleRequestClose}
-  > */}
   <Drawer open={this.state.open}>
   <Menu>
     <MenuItem>
@@ -86,6 +81,9 @@ render() {
     <MenuItem >
       <Link to='/UserStats'>Profile</Link>
     </MenuItem>
+    <MenuItem >
+      <Link to='/Home'>Home</Link>
+    </MenuItem>
     <MenuItem onClick={() => this.signOut()}>
     SignOut
     </MenuItem>
@@ -98,5 +96,12 @@ render() {
   )}
 }
 
+const mapStateToProps = (state) => {
+  const { email } = state;
+  return {
+    email
+  }
+}
 
-export default Header;
+
+export default connect(mapStateToProps, null)(Header);

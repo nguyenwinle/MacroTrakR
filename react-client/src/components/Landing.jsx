@@ -127,13 +127,10 @@ class Landing extends React.Component {
     };
     return (
     <div className="mainCenter">
-      <DailySummary/>
-      {/* <USDAsearch/> */}
+      {/* <DailySummary/> */}
+      <USDAsearch/>
       <div>
-      {/* <List
-      items={this.state.items}
-      searchItem={this.state.searchItem}
-      /> */}
+
       <div>
       {this.state.caloriesLeft ? "Based on a 2000 calorie diet, you currently have " + this.state.caloriesLeft + " calories left for the day" : ""}<br/><br/>
       </div>

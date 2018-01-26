@@ -9,7 +9,8 @@ class USDAsearch extends React.Component {
             searchInput: '',
             usdaList: [],
             usdaResults: [],
-            testState: ''
+            testState: '',
+            ndbno: null
         }
         this.handleSearchInput = this.handleSearchInput.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
@@ -30,20 +31,51 @@ handleSubmit(event) {
         searchTerm: this.state.searchInput,
       })
     .then((response) => {
+        console.log('get in better shape', response.data.list.item)
         this.setState({
             usdaResults : response.data.list.item
         })
-        console.log('usdaList after setSteate', this.state.usdaList)
     })
     .catch((error) => {
     console.log(error);
     });
 }
 
-handleClick() {
-    console.log('passed down successffuly')
+handleSubmitNDBNO() {
+    console.log('clientside handleSubmitNDBNO invoked')
+    event.preventDefault()
+    axios.get('banx/usdaReport', {
+        params: {
+            ndbno : this.state.ndbno
+        }
+    })
+    .then((response) =>{
+        console.log('clientside response',response)
+    })
+    .catch((error) => {
+        console.log(error)
+    })
+
+    // axios.get('/user', {
+    //     params: {
+    //       ID: 12345
+    //     }
+    //   })
+    //   .then(function (response) {
+    //     console.log(response);
+    //   })
+    //   .catch(function (error) {
+    //     console.log(error);
+    //   });
+  
+}
+
+handleClick(num) {
+    console.log('handleClick', this.props)
     this.setState({
-        testState: "Changed"
+        ndbno: num
+    }, () => {
+        // this.handleSubmitNDBNO();
     })
 }
 

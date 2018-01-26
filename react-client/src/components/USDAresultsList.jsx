@@ -3,14 +3,13 @@ import USDAsearch from './USDAsearch.jsx'
 
 const USDAresultsList = (props) => (
     <div>
-        {console.log("hi", props)}
         {props.usdaResults.map((item, index) => 
         <li onClick={() => {
-            props.handleClick()}
+            props.handleClick(item.ndbno)}
         }
         className="testNoBullet" 
         key={index}
-        >{item.name}</li>)}
+        >{"NDBNO #: "}{item.ndbno} {"  + "} {item.name}</li>)}
     </div>
 )
 

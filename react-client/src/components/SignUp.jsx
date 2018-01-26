@@ -17,7 +17,7 @@ class SignUp extends React.Component {
             error: {
                 message: ''
             },
-            signedIn: false
+            // signedIn: false
         }
         // this.handleSignUp = this.handleSignUp.bind(this);
         this.changeEmailState = this.changeEmailState.bind(this);
@@ -57,12 +57,14 @@ class SignUp extends React.Component {
                 error: error
             })
         })
-        .then(() => {
-            this.setState({
-                signedIn: true
-            })
-        })
+        // .then(() => {
+        //     this.setState({
+        //         signedIn: true
+        //     })
+        // })
     }
+
+
 
     render() {
         const { email } = this.props;
