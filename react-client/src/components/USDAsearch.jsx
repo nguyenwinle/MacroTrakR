@@ -1,7 +1,10 @@
 import React from 'react';
 import axios from 'axios';
 import USDAresultsList from './USDAresultsList.jsx';
-import NdbnoResultsList from './NdbnoResultsList.jsx';
+import NdbnoResultsList from './NdbnoResultsList.jsx';  
+import FloatingActionButton from 'material-ui/FloatingActionButton';
+import ContentAdd from 'material-ui/svg-icons/content/add';
+import { connect } from 'react-redux'
 
 class USDAsearch extends React.Component {
     constructor(props) {
@@ -17,6 +20,7 @@ class USDAsearch extends React.Component {
         this.handleSearchInput = this.handleSearchInput.bind(this)
         this.handleSubmit = this.handleSubmit.bind(this)
         this.handleClick = this.handleClick.bind(this)
+        this.handleSaveToDB = this.handleSaveToDB.bind(this)
     }
 
 handleSearchInput(event) {
@@ -78,12 +82,34 @@ handleClick(num) {
     })
 }
 
+handleSaveToDB() {
+    let nutritionOBj = this.state.nutrients;
+    let emailOBJ = {};
+    const { email } = this.props
+    emailOBJ['email'] = email;
+    nutritionOBj['email'] = emailOBJ;
+    console.log('savetodb', nutritionOBj)
+    axios.post('/banx/caloriesInput', nutritionOBj)
+    .then(() => {
+      this.setState({
+        items: [],
+        searchItem: ""
+      })
+    })
+    .catch(function (error) {
+      console.log(error);
+    });
+  }
+
 render() {
     if (this.state.testState) {
         return <div>hi</div>
     }
     return (
     <div>
+          <FloatingActionButton type="submit" value="add to my daily intake" onClick={this.handleSaveToDB}>
+            <ContentAdd />
+         </FloatingActionButton>
         <form>
         <label>
             <input type="text" value={this.state.searchInput} onChange={this.handleSearchInput}/>
@@ -101,4 +127,11 @@ render() {
     )}
 }
 
-export default USDAsearch;
+const mapStateToProps = (state) => {
+    const { email } = state;
+    return {
+        email
+    }
+}
+
+export default connect(mapStateToProps, null)(USDAsearch);

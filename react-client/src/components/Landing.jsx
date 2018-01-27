@@ -6,19 +6,12 @@ import DailySummary from './DailySummary.jsx'
 import { connect } from 'react-redux';
 import axios from 'axios'
 import Paper from 'material-ui/Paper';
-import FloatingActionButton from 'material-ui/FloatingActionButton';
-import ContentAdd from 'material-ui/svg-icons/content/add';
+
 import {
   BrowserRouter as Router,
   Route,
   Link
 } from 'react-router-dom'
-
-
-import FontIcon from 'material-ui/FontIcon';
-import {BottomNavigation, BottomNavigationItem} from 'material-ui/BottomNavigation';
-import AppBar from 'material-ui/AppBar/AppBar';
-
 
 class Landing extends React.Component {
   constructor(props) {
@@ -29,7 +22,6 @@ class Landing extends React.Component {
       caloriesLeft : null,
       allFoods : []
     }
-    this.handleSaveToDB = this.handleSaveToDB.bind(this)
     this.handleGetAllEntriesFromDB = this.handleGetAllEntriesFromDB.bind(this)
   }
 
@@ -66,21 +58,7 @@ class Landing extends React.Component {
   // }
 
 
-  handleSaveToDB() {
-    let nutritionOBj = this.state.items[0];
-    const { email } = this.props
-    nutritionOBj['email'] = email;
-    axios.post('/banx/caloriesInput', nutritionOBj)
-    .then(() => {
-      this.setState({
-        items: [],
-        searchItem: ""
-      })
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
+  
 
   render () {
     const iconStyles = {
@@ -89,7 +67,8 @@ class Landing extends React.Component {
     return (
     <div className="mainCenter">
       <DailySummary/>
-      <USDAsearch/>
+     <USDAsearch/>
+
       <div>
 
       <div>
@@ -108,23 +87,6 @@ class Landing extends React.Component {
     </div>
       </div>
 
-        {/* <Paper zDepth={3} className='footer'> */}
-          {/* <BottomNavigation selectedIndex={this.state.selectedIndex}> */}
-          {/* <BottomNavigationItem */}
-          {/* label="Diary"
-          icon={recentsIcon}
-          onClick={this.handleGetAllEntriesFromDB}
-          /> */}
-          {/* <FloatingActionButton type="submit" value="add to my daily intake" onClick={this.handleSaveToDB}>
-            <ContentAdd />
-         </FloatingActionButton><br/><br/> */}
-        {/* <BottomNavigationItem */}
-        {/* label="Nearby"
-        icon={nearbyIcon}
-        onClick={() => this.select(2)}
-        /> */}
-        {/* </BottomNavigation> */}
-        {/* </Paper> */}
     </div>
     )
   }
