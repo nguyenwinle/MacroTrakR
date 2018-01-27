@@ -33,6 +33,7 @@ handleSubmit(event) {
         searchTerm: this.state.searchInput,
       })
     .then((response) => {
+        console.log(response.data)
         this.setState({
             usdaResults : response.data.list.item
         })

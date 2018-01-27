@@ -24,7 +24,8 @@ class UserStats extends React.Component {
             weight: 0,
             height: 0,
             age: 0,
-            calories: ""
+            calories: "",
+            macros: null
         }
         this.handleActivityLevel = this.handleActivityLevel.bind(this)
         this.handleGender = this.handleGender.bind(this)
@@ -133,13 +134,13 @@ class UserStats extends React.Component {
 
         calcCalories = this.calculateMacros(userBodyData);
         macrosNutrients = this.calculateMacrosNutrients(calcCalories)
-        console.log('calories', calcCalories)
-        console.log('macroNutrients', macrosNutrients)
+        console.log('tree', macrosNutrients)
         
         axios.post('banx/userStats', userBodyData)
           .then((response)=>{
             this.setState({
-                calories: calcCalories
+                calories: calcCalories,
+                macros: macrosNutrients
             })
           })
           .catch((error)=> {
@@ -169,12 +170,13 @@ class UserStats extends React.Component {
     // }
 
     render() {
-        // if (this.state.compiledData) {
-        //     return <Redirect to='/' />
-        // }
+        console.log("bannaa tree", this.state.macros)
+        if (this.state.macros) {
+            return <Redirect to="/"/>
+        }
         return (
             <div>
-                {/* <DailySummary calories={this.state.calories}/> */}
+                
                 <Paper>
                 <form>
                     <label>
