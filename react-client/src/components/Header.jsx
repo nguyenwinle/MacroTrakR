@@ -1,7 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
-import { firebaseApp } from '../config/firebase.js'
+import { firebaseApp } from '../config/firebase.js';
+import { connect } from 'react-redux';
 import Popover from 'material-ui/Popover';
 import Menu from 'material-ui/Menu';
 import RaisedButton from 'material-ui/RaisedButton';
@@ -55,12 +56,21 @@ class Header extends React.Component {
   };
 
 render() {
+  const { email } = this.props;
+  let signUp;
+  let signIn;
+  let signOut;
+  if (!email) {
+    signUp = <MenuItem onClick={this.handleRequestClose}><Link to='/SignUp'>Sign Up</Link></MenuItem>
+    signIn = <MenuItem onClick={this.handleRequestClose}><Link to='/SignIn'>Login</Link></MenuItem>
+  } else if (email) {
+    signOut = <MenuItem onClick={() => this.signOut()}>SignOut</MenuItem>
+  }
   return (
   <header>
 
   <AppBar
     title = "MacroTrakR"
-    // onLeftIconButtonTouchTap={this.onClick}
     onClick = {this.handleToggle}
   >
   <Drawer
@@ -70,10 +80,10 @@ render() {
     onRequestChange={(open) => this.setState({open})}
   >
     <MenuItem onClick={this.handleRequestClose}><Link to='/'>Home</Link></MenuItem>
-    <MenuItem onClick={this.handleRequestClose}><Link to='/SignUp'>Sign Up</Link></MenuItem>
-    <MenuItem onClick={this.handleRequestClose}>  <Link to='/SignIn'>Login</Link></MenuItem>
+    {signUp}
+    {signIn}
     <MenuItem onClick={this.handleRequestClose}><Link to='/UserStats'>Profile</Link></MenuItem>
-    <MenuItem onClick={() => this.signOut()}>SignOut</MenuItem>
+    {signOut}
   </Drawer>
 
   </AppBar>
@@ -82,5 +92,12 @@ render() {
   )}
 }
 
+const mapStateToProps = (state) => {
+  const { email } = state;
+  return {
+      email
+  }
+}
 
-export default Header;
+
+export default connect(mapStateToProps, null)(Header);

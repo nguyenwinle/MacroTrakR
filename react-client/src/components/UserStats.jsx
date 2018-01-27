@@ -174,7 +174,7 @@ class UserStats extends React.Component {
         // }
         return (
             <div>
-                <DailySummary calories={this.state.calories}/>
+                {/* <DailySummary calories={this.state.calories}/> */}
                 <Paper>
                 <form>
                     <label>
