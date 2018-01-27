@@ -29,7 +29,6 @@ class Landing extends React.Component {
       caloriesLeft : null,
       allFoods : []
     }
-    this.handleSubmit = this.handleSubmit.bind(this)
     this.handleSaveToDB = this.handleSaveToDB.bind(this)
     this.handleGetAllEntriesFromDB = this.handleGetAllEntriesFromDB.bind(this)
   }
@@ -83,51 +82,13 @@ class Landing extends React.Component {
     });
   }
 
-
-  handleSubmit(event) {
-    event.preventDefault()
-    axios.post('/banx/searchNutrition', {
-      query: this.state.searchItem
-    })
-    .then((response) => {
-      console.log(response.data)
-      let results = response.data.foods[0];
-      let tempList = []
-      tempList.push({
-        fats: results.nf_total_fat,
-        Saturated: results.nf_saturated_fat,
-        // Polyunsaturated: '',
-        // Monounsaturated: '',
-        // Trans : '',
-        cholesterol: results.nf_cholesterol,
-        sodium: results.nf_sodium,
-        Potassium: results.nf_potassium,
-        carbs: results.nf_total_carbohydrate,
-        fiber: results.nf_dietary_fiber,
-        sugars: results.nf_sugars,
-        protein: results.nf_protein,
-        // VitaminA: '',
-        // VitaminC: '',
-        // Calcium: '',
-        // Iron: '',
-        calories: results.nf_calories,
-      })
-      this.setState({
-        items: tempList
-      })
-    })
-    .catch(function (error) {
-      console.log(error);
-    });
-  }
-
   render () {
     const iconStyles = {
       marginRight: 24,
     };
     return (
     <div className="mainCenter">
-      {/* <DailySummary/> */}
+      <DailySummary/>
       <USDAsearch/>
       <div>
 

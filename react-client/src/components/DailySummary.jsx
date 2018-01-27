@@ -12,12 +12,12 @@ const DailySummary = (props) => {
       <div>
           <Paper>
             <div>
-                <span><SetCalories/></span>
+                <span><SetCalories calories={props.calories}/></span>
                 <span> <CaloriesInputed/></span>
                 <span><RemainingCalories/></span>
-                <div>
+                {/* <div>
                     <NutrientTable/>
-                </div>
+                </div> */}
             </div>
         </Paper>
       </div>
