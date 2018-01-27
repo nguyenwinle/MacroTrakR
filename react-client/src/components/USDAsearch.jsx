@@ -1,6 +1,7 @@
 import React from 'react';
 import axios from 'axios';
 import USDAresultsList from './USDAresultsList.jsx';
+import NdbnoResultsList from './NdbnoResultsList.jsx';
 
 class USDAsearch extends React.Component {
     constructor(props) {
@@ -32,7 +33,6 @@ handleSubmit(event) {
         searchTerm: this.state.searchInput,
       })
     .then((response) => {
-        console.log('get in better shape', response.data.list.item)
         this.setState({
             usdaResults : response.data.list.item
         })
@@ -52,10 +52,16 @@ handleSubmitNDBNO() {
         }
     })
     .then((response) =>{
+        console.log('clientside', response.data.report.food.nutrients)
         this.setState({
+            searchInput: '',
+            usdaList: [],
+            ndbno: null,
+            usdaResults: [],
+            testState: '',
             nutrients: response.data.report.food.nutrients
+        })
     })
-})
     .catch((error) => {
         console.log(error)
     })
@@ -86,6 +92,9 @@ render() {
     <USDAresultsList 
     usdaResults={this.state.usdaResults}
     handleClick={this.handleClick}
+    />
+    <NdbnoResultsList
+    nutrient={this.state.nutrients}
     />
     </div>
     )}
