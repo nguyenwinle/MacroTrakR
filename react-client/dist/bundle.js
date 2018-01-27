@@ -50510,6 +50510,8 @@ var _AppBar2 = _interopRequireDefault(_AppBar);
 
 var _firebase = __webpack_require__(97);
 
+var _reactRedux = __webpack_require__(99);
+
 var _Popover = __webpack_require__(298);
 
 var _Popover2 = _interopRequireDefault(_Popover);
@@ -50596,15 +50598,47 @@ var Header = function (_React$Component) {
     value: function render() {
       var _this2 = this;
 
+      var email = this.props.email;
+
+      var signUp = void 0;
+      var signIn = void 0;
+      var signOut = void 0;
+      if (!email) {
+        signUp = _react2.default.createElement(
+          _MenuItem2.default,
+          { onClick: this.handleRequestClose },
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/SignUp' },
+            'Sign Up'
+          )
+        );
+        signIn = _react2.default.createElement(
+          _MenuItem2.default,
+          { onClick: this.handleRequestClose },
+          _react2.default.createElement(
+            _reactRouterDom.Link,
+            { to: '/SignIn' },
+            'Login'
+          )
+        );
+      } else if (email) {
+        signOut = _react2.default.createElement(
+          _MenuItem2.default,
+          { onClick: function onClick() {
+              return _this2.signOut();
+            } },
+          'SignOut'
+        );
+      }
       return _react2.default.createElement(
         'header',
         null,
         _react2.default.createElement(
           _AppBar2.default,
           {
-            title: 'MacroTrakR'
-            // onLeftIconButtonTouchTap={this.onClick}
-            , onClick: this.handleToggle
+            title: 'MacroTrakR',
+            onClick: this.handleToggle
           },
           _react2.default.createElement(
             _Drawer2.default,
@@ -50625,25 +50659,8 @@ var Header = function (_React$Component) {
                 'Home'
               )
             ),
-            _react2.default.createElement(
-              _MenuItem2.default,
-              { onClick: this.handleRequestClose },
-              _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: '/SignUp' },
-                'Sign Up'
-              )
-            ),
-            _react2.default.createElement(
-              _MenuItem2.default,
-              { onClick: this.handleRequestClose },
-              '  ',
-              _react2.default.createElement(
-                _reactRouterDom.Link,
-                { to: '/SignIn' },
-                'Login'
-              )
-            ),
+            signUp,
+            signIn,
             _react2.default.createElement(
               _MenuItem2.default,
               { onClick: this.handleRequestClose },
@@ -50653,13 +50670,7 @@ var Header = function (_React$Component) {
                 'Profile'
               )
             ),
-            _react2.default.createElement(
-              _MenuItem2.default,
-              { onClick: function onClick() {
-                  return _this2.signOut();
-                } },
-              'SignOut'
-            )
+            signOut
           )
         )
       );
@@ -50669,7 +50680,15 @@ var Header = function (_React$Component) {
   return Header;
 }(_react2.default.Component);
 
-exports.default = Header;
+var mapStateToProps = function mapStateToProps(state) {
+  var email = state.email;
+
+  return {
+    email: email
+  };
+};
+
+exports.default = (0, _reactRedux.connect)(mapStateToProps, null)(Header);
 
 /***/ }),
 /* 458 */
@@ -51444,7 +51463,6 @@ var UserStats = function (_React$Component) {
             return _react2.default.createElement(
                 'div',
                 null,
-                _react2.default.createElement(_DailySummary2.default, { calories: this.state.calories }),
                 _react2.default.createElement(
                     _Paper2.default,
                     null,
