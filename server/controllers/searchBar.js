@@ -21,6 +21,7 @@ module.exports = {
 
     usdaReport: {
         get: (req, res) => {
+            console.log('usda reports invokes')
             let api_key = usdaKey.apiKey
             let ndbno = req.query.ndbno
             let type = "b";
@@ -30,10 +31,11 @@ module.exports = {
                     api_key: api_key,
                     ndbno: ndbno,
                     type: type,
-                    ndbno: ndbno
+                    format: format
                 }
             })
             .then((response) => {
+                console.log('servserside isda report invoked')
                 res.send(response.data)
             })
             .catch((error) => {
