@@ -138,6 +138,7 @@ class UserStats extends React.Component {
         
         axios.post('banx/userStats', userBodyData)
           .then((response)=>{
+              console.log(response.data)
             this.setState({
                 calories: calcCalories,
                 macros: macrosNutrients

@@ -9,8 +9,10 @@ import {
   } from 'material-ui/Table';
 
 
+
 const NdbnoResultsList = (props) => {
     return (
+      
         <Table>
          {props.nutrient.length === 0 ?  
     

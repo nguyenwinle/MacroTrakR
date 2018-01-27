@@ -62,25 +62,6 @@ module.exports = {
           }
       },
 
-      searchNutrition: {
-          post: function(req, res) {
-            var query = req.body;
-            axios.post('https://trackapi.nutritionix.com/v2/natural/nutrients', query,
-            {
-              headers : {
-                "x-app-id" : "90459724",
-                "x-app-key" : "2f56e0df3a2b13689c8d88a7a5cfb97d"
-              }
-            })
-            .then((response) => {
-              res.send(response.data);
-            })
-            .catch( (error) => {
-              console.log(error);
-            });
-        }
-      },
-
       userStats: {
         post: function(req, res) {
           var userBodyStats = req.body
