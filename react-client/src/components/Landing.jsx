@@ -1,4 +1,5 @@
 import React from 'react';
+import Divider from 'material-ui/Divider';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import $ from 'jquery';
 import USDAsearch from './USDAsearch.jsx';
@@ -127,14 +128,20 @@ class Landing extends React.Component {
     };
     return (
     <div className="mainCenter">
-      {/* <DailySummary/> */}
+    <h2>Search food:</h2>
+      {/* <DailySummary/> */}   
       <USDAsearch/>
-      <div>
+    <h2> Results </h2>
 
       <div>
-      {this.state.caloriesLeft ? "Based on a 2000 calorie diet, you currently have " + this.state.caloriesLeft + " calories left for the day" : ""}<br/><br/>
-      </div>
+    
       <div>
+      {this.state.caloriesLeft ? "Based on a 2000 calorie diet, you currently have " + this.state.caloriesLeft + " calories left for the day" : ""}<br/><br/>
+      </div>      
+
+      <div>
+
+
         <Paper zDepth={3}>
         {this.state.allFoods ? this.state.allFoods.map((entry, index) =>
           <li key={index} className="listItem">{entry.searchItem}  {"    "} {entry.calories}

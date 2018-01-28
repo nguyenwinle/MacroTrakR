@@ -1,4 +1,10 @@
-import React from 'react';
+import React, {Component} from 'react';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import Divider from 'material-ui/Divider';
+import DatePicker from 'material-ui/DatePicker';
 import { connect } from 'react-redux';
 import {
     BrowserRouter as Router,
@@ -13,12 +19,19 @@ import SetCalories from './SetCalories.jsx';
 import Paper from 'material-ui/Paper';
 import DailySummary from './DailySummary.jsx';
 
+const styles = {
+  customWidth: {
+    width: 200,
+  },
+};
 
 class UserStats extends React.Component {
     constructor(props){
         super(props);
         this.state = {
-            activityLevel: "sedentary",
+            value: null,
+            value2: null,
+            value3: null,
             goal: "Lose",
             gender: "Male",
             weight: 0,
@@ -52,21 +65,21 @@ class UserStats extends React.Component {
         })
     }
 
-   handleActivityLevel(event) {
+   handleActivityLevel(event, index, value) {
         this.setState({
-            value: event.target.value
+            value
         })
     }
 
-    handleGender(event) {
+    handleGender(event, index, value2) {
         this.setState({
-            gender: event.target.value
+            value2
         })
     }
 
-    handleGoal(event) {
+    handleGoal(event, index, value3) {
         this.setState({
-            goal: event.target.value
+            value3
         })
     }
 
@@ -173,61 +186,96 @@ class UserStats extends React.Component {
         //     return <Redirect to='/' />
         // }
         return (
-            <div>
+            <div className = "profile">
+               <div className = "calorie">
                 <DailySummary calories={this.state.calories}/>
-                <Paper>
+               </div>
+            <br/>
+
+
+            
                 <form>
+                <h2>Profile</h2>
+                <Divider/>
                     <label>
+                    <br/>
                     Age:<br/>
                     <input type="number" placeholder="Age" onChange={this.handleAge} />
+
+                      <div>
+    <DatePicker hintText="Birthdate" openToYearSelection={true} />
+  </div>
                     </label>
-                    <br/> <br/>
-                    <label>                
-                    Current Weight:<br/>
-                    <input type="number" placeholder="Weight" onChange={this.handleWeight} />
-                    </label>
+
                     <br/> <br/>
                     <label>
                     Current Height:<br/>
-                    <input type="number" placeholder="Feet" onChange={this.handleFeet}/>
+                    <input type="number" placeholder="Feet" onChange={this.handleFeet}/><br/>
                     <input type="number" placeholder="Inches" onChange={this.handleInches} />
-                    </label>
-                    <br/> <br/>
-                    <label>
-                        Activity Level:<br/>
-                    <select value={this.state.value} onChange={this.handleActivityLevel}>
-                        <option value="sedentary">Sedentary</option>
-                        <option value="lightActivity">Light Activity</option>
-                        <option value="moderateActivity">Moderate Activity</option>
-                        <option value="veryActive">Very Active</option>
-                    </select>
-                    </label>
-                    <label>
-                        Gender:<br/>
-                    <select value={this.state.gender} onChange={this.handleGender}>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
-                    </label>
-                    <br/><br/>
-                    <label>
-                        Goal:<br/>
-                    <select value={this.state.value} onChange={this.handleChangeGoal}>
-                        <option value="Lose">Lose</option>
-                        <option value="Lose10">Lose10</option>
-                        <option value="Maintain">Maintain</option>
-                        <option value="Gain">Gain</option>
-                    </select>
-                    </label>
-                    <input 
-                    type="submit" 
-                    value="Submit" 
-                    onClick={this.handleSubmitUserStats}
-                    /><br/> <br/>
+                    </label>  
 
+                        
+
+                    <br/>
+
+                       <label>                
+
+    <TextField
+      hintText="number"
+      floatingLabelText="Weight in lbs"
+      floatingLabelFixed={true}
+      onChange={this.handleWeight}/>
+    <br />
+                    </label>
+                    <br/>
+                    <label>
+  <SelectField
+          floatingLabelText="Activity"
+          value={this.state.value}
+          onChange={this.handleActivityLevel}
+          style={styles.customWidth}
+        >
+          <MenuItem value={1} primaryText="Sedentary" />
+          <MenuItem value={2} primaryText="Light Activity" />
+          <MenuItem value={3} primaryText="Moderate Activity" />
+          <MenuItem value={4} primaryText="Very Active" />
+        </SelectField>
+                    </label>
+                    <br />
+                    <label>
+
+<SelectField
+          floatingLabelText="Gender"
+          value={this.state.value2}
+          onChange={this.handleGender}
+          style={styles.customWidth}
+        >
+          <MenuItem value={5} primaryText="Male" />
+          <MenuItem value={6} primaryText="Female" />
+        </SelectField>
+                    </label>
+                    <br />
+                    <label>
+<SelectField
+          floatingLabelText="Goal"
+          value={this.state.value3}
+          onChange={this.handleGoal}
+          style={styles.customWidth}
+        >
+          <MenuItem value={7} primaryText="Lose weight" />
+          <MenuItem value={8} primaryText="Lose 10lbs" />
+          <MenuItem value={9} primaryText="Maintain weight" />
+          <MenuItem value={10} primaryText="Gain weight" />
+        </SelectField>
+                    </label>
+
+  <br/>
+
+<br/>
+        <RaisedButton label="Submit" primary={true} onClick={() => this.handleSubmitUserStats}/>
                 </form>
-                </Paper>
-            </div>
+</div> 
+            
         )
     }
 }
@@ -240,5 +288,7 @@ var mapStateToProps = function(state) {
         email
     }
 }
+
+
 
 export default connect(mapStateToProps, null)(UserStats);
