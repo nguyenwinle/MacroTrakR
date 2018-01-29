@@ -6,6 +6,7 @@ import DailySummary from './DailySummary.jsx'
 import { connect } from 'react-redux';
 import axios from 'axios'
 import Paper from 'material-ui/Paper';
+import Header from './Header.jsx'
 
 import {
   BrowserRouter as Router,
@@ -82,7 +83,6 @@ class Landing extends React.Component {
         </Paper>
       </div>
       <div>
-
      {/* <input type="submit" value="how many calories do i have left" onClick={this.handleGetFromDB}/><br/><br/>       */}
     </div>
       </div>

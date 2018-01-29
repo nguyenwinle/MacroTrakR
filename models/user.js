@@ -17,19 +17,19 @@ var Schema = mongoose.Schema
 
 const userNutritionIntakeSchema = mongoose.Schema({
     email: { type: String },
-    Water: {type: Number, default: 0},
-    Calories: {type: Number, default: 0},
-    Protein: {type: Number, default: 0},
-    TotalFats: {type: Number, default: 0},
-    Carbohydrates: {type: Number, default: 0},
-    Fiber: {type: Number, default: 0},
-    Sugars: {type: Number, default: 0},
-    Calcium: {type: Number, default: 0},
-    Iron: {type: Number, default: 0},
-    Magenesium: {type: Number, default: 0},
-    Phophorous: {type: Number, default: 0},
-    Potassium: {type: Number, default: 0},
-    Sodium: {type: Number, default: 0},
+    Water: {type: String, default: 0},
+    Calories: {type: String, default: 0},
+    Protein: {type: String, default: 0},
+    TotalFats: {type: String, default: 0},
+    Carbohydrates: {type: String, default: 0},
+    Fiber: {type: String, default: 0},
+    Sugars: {type: String, default: 0},
+    Calcium: {type: String, default: 0},
+    Iron: {type: String, default: 0},
+    Magenesium: {type: String, default: 0},
+    Phophorous: {type: String, default: 0},
+    Potassium: {type: String, default: 0},
+    Sodium: {type: String, default: 0},
 })
 
 const userNutritionIntake = mongoose.model('userNutritionIntake', userNutritionIntakeSchema);
