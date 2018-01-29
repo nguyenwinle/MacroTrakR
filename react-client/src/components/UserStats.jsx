@@ -1,4 +1,10 @@
 import React from 'react';
+import SelectField from 'material-ui/SelectField';
+import MenuItem from 'material-ui/MenuItem';
+import RaisedButton from 'material-ui/RaisedButton';
+import TextField from 'material-ui/TextField';
+import Divider from 'material-ui/Divider';
+import DatePicker from 'material-ui/DatePicker';
 import { connect } from 'react-redux';
 import {
     BrowserRouter as Router,
@@ -13,11 +19,19 @@ import SetCalories from './SetCalories.jsx';
 import Paper from 'material-ui/Paper';
 import DailySummary from './DailySummary.jsx';
 
+const styles = {
+  customWidth: {
+    width: 200,
+  },
+};
 
 class UserStats extends React.Component {
     constructor(props){
         super(props);
         this.state = {
+            value: null,
+            value2: null,
+            value3: null,
             activityLevel: "sedentary",
             goal: "Lose",
             gender: "Male",
@@ -89,7 +103,7 @@ class UserStats extends React.Component {
         let TDEE = null;
         let totalTDEE = null;
 
-        
+
         if (obj.gender === "Male") {
             restingEnergy = 10 * this.state.weight + 6.25 * this.state.height - 5 * this.state.age + 5
         } else if (obj.gender === "Female") {
@@ -112,7 +126,7 @@ class UserStats extends React.Component {
             totalTDEE = TDEE - ( TDEE * .10 )
         } else if (obj.goal === "Gain") {
             totalTDEE = TDEE + ( TDEE * .20)
-        }     
+        }
         return Math.round(totalTDEE);
     }
 
@@ -135,7 +149,7 @@ class UserStats extends React.Component {
         calcCalories = this.calculateMacros(userBodyData);
         macrosNutrients = this.calculateMacrosNutrients(calcCalories)
         console.log('tree', macrosNutrients)
-        
+
         axios.post('banx/userStats', userBodyData)
           .then((response)=>{
               console.log(response.data)
@@ -176,60 +190,76 @@ class UserStats extends React.Component {
             return <Redirect to="/"/>
         }
         return (
-            <div>
-                
-                <Paper>
+            <div className = "profile">
+               <h2>Profile</h2>
+               <Divider/>
                 <form>
                     <label>
                     Age:<br/>
                     <input type="number" placeholder="Age" onChange={this.handleAge} />
+                      <div>
+                        <DatePicker hintText="Birthdate" openToYearSelection={true} />
+                      </div>
                     </label>
-                    <br/> <br/>
-                    <label>                
-                    Current Weight:<br/>
-                    <input type="number" placeholder="Weight" onChange={this.handleWeight} />
+                    <br/>
+                    <label>
+                      <TextField
+                        hintText="number"
+                        floatingLabelText="Weight in lbs"
+                        floatingLabelFixed={true}
+                        onChange={this.handleWeight}/>
                     </label>
-                    <br/> <br/>
+                    <br/>
                     <label>
                     Current Height:<br/>
                     <input type="number" placeholder="Feet" onChange={this.handleFeet}/>
                     <input type="number" placeholder="Inches" onChange={this.handleInches} />
                     </label>
+                    <br/>
+                    <label>
+                      <SelectField
+                        floatingLabelText="Activity"
+                        value={this.state.value}
+                        onChange={this.handleActivityLevel}
+                        style={styles.customWidth}>
+                        <MenuItem value={1} primaryText="Sedentary" />
+                        <MenuItem value={2} primaryText="Light Activity" />
+                        <MenuItem value={3} primaryText="Moderate Activity" />
+                        <MenuItem value={4} primaryText="Very Active" />
+                      </SelectField>
+                    </label>
+                    <br/>
+                    <label>
+                     <SelectField
+                        floatingLabelText="Gender"
+                        value={this.state.value2}
+                        onChange={this.handleGender}
+                        style={styles.customWidth}>
+                        <MenuItem value={5} primaryText="Male" />
+                        <MenuItem value={6} primaryText="Female" />
+                      </SelectField>
+                    </label>
+                    <br/>
+                    <label>
+                     <SelectField
+                       floatingLabelText="Goal"
+                       value={this.state.value3}
+                       onChange={this.handleGoal}
+                       style={styles.customWidth}>
+                       <MenuItem value={7} primaryText="Lose weight" />
+                       <MenuItem value={8} primaryText="Lose 10lbs" />
+                       <MenuItem value={9} primaryText="Maintain weight" />
+                       <MenuItem value={10} primaryText="Gain weight" />
+                     </SelectField>
+                    </label>
+                    <br/>
+                     <RaisedButton label="Submit"
+                      primary={true}
+                      onClick={() => this.handleSubmitUserStats}/>
                     <br/> <br/>
-                    <label>
-                        Activity Level:<br/>
-                    <select value={this.state.value} onChange={this.handleActivityLevel}>
-                        <option value="sedentary">Sedentary</option>
-                        <option value="lightActivity">Light Activity</option>
-                        <option value="moderateActivity">Moderate Activity</option>
-                        <option value="veryActive">Very Active</option>
-                    </select>
-                    </label>
-                    <label>
-                        Gender:<br/>
-                    <select value={this.state.gender} onChange={this.handleGender}>
-                        <option value="Male">Male</option>
-                        <option value="Female">Female</option>
-                    </select>
-                    </label>
-                    <br/><br/>
-                    <label>
-                        Goal:<br/>
-                    <select value={this.state.value} onChange={this.handleChangeGoal}>
-                        <option value="Lose">Lose</option>
-                        <option value="Lose10">Lose10</option>
-                        <option value="Maintain">Maintain</option>
-                        <option value="Gain">Gain</option>
-                    </select>
-                    </label>
-                    <input 
-                    type="submit" 
-                    value="Submit" 
-                    onClick={this.handleSubmitUserStats}
-                    /><br/> <br/>
 
                 </form>
-                </Paper>
+
             </div>
         )
     }
