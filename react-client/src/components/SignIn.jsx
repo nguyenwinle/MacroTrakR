@@ -3,6 +3,7 @@ import AppBar from 'material-ui/AppBar';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import React from 'react';
+import { connect } from 'react-redux'
 import { firebaseApp } from '../config/firebase.js';
 import {
     BrowserRouter as Router,
@@ -60,8 +61,8 @@ class SignIn extends React.Component {
     }
 
     render() {
-        const isLoggedin = this.state.signedIn;
-        if (isLoggedin) {
+        const { email } = this.props
+        if (email) {
             return (
               <Redirect to={'/'}/>
             )
@@ -98,4 +99,11 @@ const style = {
 margin: 15,
 };
 
-export default SignIn;
+const mapStateToProps = (state) => {
+    const { email } = state
+    return {
+        email
+    }
+}
+
+export default connect(mapStateToProps, null)(SignIn);

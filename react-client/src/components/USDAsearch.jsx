@@ -5,6 +5,7 @@ import NdbnoResultsList from './NdbnoResultsList.jsx';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import { connect } from 'react-redux'
+import helpers from '../helpers.js';
 
 class USDAsearch extends React.Component {
     constructor(props) {
@@ -83,13 +84,12 @@ handleClick(num) {
 }
 
 handleSaveToDB() {
-    let nutritionOBj = this.state.nutrients;
-    let emailOBJ = {};
+    var redesignedObj = helpers.redesign(this.state.nutrients)
     const { email } = this.props
-    emailOBJ['email'] = email;
-    nutritionOBj['email'] = emailOBJ;
-    console.log('savetodb', nutritionOBj)
-    axios.post('/banx/caloriesInput', nutritionOBj)
+    console.log('redesignedObj', redesignedObj)
+    redesignedObj['email'] = email;
+    console.log('savetodb', redesignedObj)
+    axios.post('/banx/caloriesInput', redesignedObj)
     .then(() => {
       this.setState({
         items: [],

@@ -17,9 +17,7 @@ class SignUp extends React.Component {
             error: {
                 message: ''
             },
-            // signedIn: false
         }
-        // this.handleSignUp = this.handleSignUp.bind(this);
         this.changeEmailState = this.changeEmailState.bind(this);
         this.changePasswordState = this.changePasswordState.bind(this)
     }
@@ -36,19 +34,6 @@ class SignUp extends React.Component {
         })
     }
 
-    // handleSignUp() {
-    //     axios.post('/dbSignUpInfo', {
-    //         email: this.state.email,
-    //         password: this.state.password
-    //         })
-    //         .then(function (response) {
-    //         console.log(response);
-    //         })
-    //         .catch(function (error) {
-    //         console.log(error);
-    //         });
-    // }
-
     signUp() {
         const { email, password } = this.state
         firebaseApp.auth().createUserWithEmailAndPassword(email, password)
@@ -57,11 +42,6 @@ class SignUp extends React.Component {
                 error: error
             })
         })
-        // .then(() => {
-        //     this.setState({
-        //         signedIn: true
-        //     })
-        // })
     }
 
 
@@ -69,7 +49,6 @@ class SignUp extends React.Component {
     render() {
         const { email } = this.props;
         let redirect;
-        console.log('baba', email)
         if (email) {
             redirect = <Redirect to='/UserStats'/>
         } 

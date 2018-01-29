@@ -7,7 +7,6 @@ import NutrientTable from './NutrientTable.jsx'
 
 
 const DailySummary = (props) => {
-    console.log('daily summary props:', props)
     return (
       <div>
           <Paper>

@@ -1,5 +1,5 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect } from 'react-router-dom';
 import AppBar from 'material-ui/AppBar';
 import { firebaseApp } from '../config/firebase.js';
 import { connect } from 'react-redux';
@@ -18,22 +18,17 @@ class Header extends React.Component {
     super(props);
     this.state = {
       open: false,
+      error: {
+        message: ''
+      },
+      signedIn : true
     }
-
-
     this.handleToggle = this.handleToggle.bind(this)
     this.handleClick = this.handleClick.bind(this)
     this.handleRequestClose = this.handleRequestClose.bind(this)
   }
 
-  signOut() {
-    firebaseApp.auth().signOut()
-    .then(function() {
-      // Sign-out successful.
-    }).catch(function(error) {
-      // An error happened.
-    })
-  }
+  
 
   handleClick(event) {
     // This prevents ghost click.
@@ -55,17 +50,42 @@ class Header extends React.Component {
     });
   };
 
+  signOut() {
+    firebaseApp.auth().signOut()
+    .catch(function(error) {
+      this.setState({
+        error: error
+      })
+    })
+    .then(() => {
+      console.log(this.state)
+      this.setState({
+          signedIn: false
+      })
+  })
+  }
+
 render() {
   const { email } = this.props;
+  let loggedIn = this.state.signedIn
   let signUp;
   let signIn;
   let signOut;
-  if (!email) {
+  let redirect;
+  if (!loggedIn) {
     signUp = <MenuItem onClick={this.handleRequestClose}><Link to='/SignUp'>Sign Up</Link></MenuItem>
     signIn = <MenuItem onClick={this.handleRequestClose}><Link to='/SignIn'>Login</Link></MenuItem>
-  } else if (email) {
+  } 
+  
+  // if (email) {
+  // }
+
+  if (loggedIn) {
+    // signUp = <MenuItem onClick={this.handleRequestClose}><Link to='/SignUp'>Sign Up</Link></MenuItem>
+    // signIn = <MenuItem onClick={this.handleRequestClose}><Link to='/SignIn'>Login</Link></MenuItem>
     signOut = <MenuItem onClick={() => this.signOut()}>SignOut</MenuItem>
-  }
+}
+
   return (
   <header>
 
