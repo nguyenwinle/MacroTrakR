@@ -59,17 +59,17 @@ class Landing extends React.Component {
   // }
 
 
-  
+
 
   render () {
     const iconStyles = {
       marginRight: 24,
     };
+
     return (
     <div className="mainCenter">
       <DailySummary/>
      <USDAsearch/>
-
       <div>
 
       <div>

@@ -27368,6 +27368,7 @@ var Landing = function (_React$Component) {
       var iconStyles = {
         marginRight: 24
       };
+
       return _react2.default.createElement(
         'div',
         { className: 'mainCenter' },
@@ -27476,6 +27477,10 @@ var _USDAresultsList2 = _interopRequireDefault(_USDAresultsList);
 var _NdbnoResultsList = __webpack_require__(415);
 
 var _NdbnoResultsList2 = _interopRequireDefault(_NdbnoResultsList);
+
+var _TextField = __webpack_require__(87);
+
+var _TextField2 = _interopRequireDefault(_TextField);
 
 var _FloatingActionButton = __webpack_require__(557);
 
@@ -27630,8 +27635,14 @@ var USDAsearch = function (_React$Component) {
                     _react2.default.createElement(
                         'label',
                         null,
-                        _react2.default.createElement('input', { type: 'text', value: this.state.searchInput, onChange: this.handleSearchInput })
+                        _react2.default.createElement(_TextField2.default, {
+                            hintText: 'What are we eating?',
+                            floatingLabelText: 'Macro Search',
+                            floatingLabelFixed: true,
+                            value: this.state.searchInput,
+                            onChange: this.handleSearchInput })
                     ),
+                    _react2.default.createElement('br', null),
                     _react2.default.createElement('input', { type: 'submit', value: 'Submit', onClick: this.handleSubmit })
                 ),
                 _react2.default.createElement(_USDAresultsList2.default, {
@@ -48277,7 +48288,7 @@ var SignUp = function (_React$Component) {
                         , onChange: this.changePasswordState
                     }),
                     _react2.default.createElement('br', null),
-                    _react2.default.createElement(_RaisedButton2.default, { label: 'Submit', onClick: function onClick() {
+                    _react2.default.createElement(_RaisedButton2.default, { label: 'Submit', primary: true, onClick: function onClick() {
                             return _this3.signUp();
                         } }),
                     _react2.default.createElement(

@@ -51,7 +51,7 @@ class SignUp extends React.Component {
         let redirect;
         if (email) {
             redirect = <Redirect to='/UserStats'/>
-        } 
+        }
         return(
         <div className = 'signupForm'>
          {redirect}
@@ -88,7 +88,7 @@ class SignUp extends React.Component {
              <br/>
 
            {/* <RaisedButton label="Submit" primary={true} style={style}  onClick={() => this.signUp()}/> */}
-           <RaisedButton label="Submit" onClick={() => this.signUp()}/>
+           <RaisedButton label="Submit" primary={true} onClick={() => this.signUp()}/>
            <div>{this.state.error.message}</div>
            <div><Link to={'/SignIn'}>Already a user? Sign in instead.</Link></div>
             </div>

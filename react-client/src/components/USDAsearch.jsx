@@ -1,7 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import USDAresultsList from './USDAresultsList.jsx';
-import NdbnoResultsList from './NdbnoResultsList.jsx';  
+import NdbnoResultsList from './NdbnoResultsList.jsx';
+import TextField from 'material-ui/TextField';
 import FloatingActionButton from 'material-ui/FloatingActionButton';
 import ContentAdd from 'material-ui/svg-icons/content/add';
 import { connect } from 'react-redux'
@@ -71,7 +72,7 @@ handleSubmitNDBNO() {
     .catch((error) => {
         console.log(error)
     })
-  
+
 }
 
 handleClick(num) {
@@ -112,11 +113,18 @@ render() {
          </FloatingActionButton>
         <form>
         <label>
-            <input type="text" value={this.state.searchInput} onChange={this.handleSearchInput}/>
+        <TextField
+          hintText="What are we eating?"
+          floatingLabelText="Macro Search"
+          floatingLabelFixed={true}
+          value={this.state.searchInput}
+          onChange={this.handleSearchInput}/>
         </label>
+        <br/>
             <input type="submit" value="Submit" onClick={this.handleSubmit} />
+
         </form>
-    <USDAresultsList 
+    <USDAresultsList
     usdaResults={this.state.usdaResults}
     handleClick={this.handleClick}
     />
